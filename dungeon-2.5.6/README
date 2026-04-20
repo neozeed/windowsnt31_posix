@@ -1,0 +1,76 @@
+This version of dungeon has the unique history of having been
+ported from the vax to the pc, and then from the pc to linux.
+Along the way, several things that had been lost to the vax
+version were replaced, making this version more faithful to
+the original code distributed over the arpanet during the late
+70s.  This version still contains the Infocom copyright notices
+in the source files -- notices which allow non-commercial use
+of the resulting program.  This version also contains data
+structures which are initialized with radix-50 text strings --
+an indication of its DEC heritage.  It is in fact highly
+obfuscated throughout, and is difficult to understand at
+first inspection.  The executable files have been collected
+separately from the source code for those who simply want to
+play the game and are not interested in the source code.  If
+you are among the 'players-only' group, you can skip the next
+section.
+
+SOURCE CODE:
+Dungeon is written in fortran, and any updates to it have been
+implemented in the original fortran sources.  The fortran sources
+are subsequently converted to C with the f2c utility, and then
+turned into an executable with the gcc compiler. There are some
+twists to this, in that a successful collection by the loader
+can only be achieved if object files containing initialized
+common blocks (block data programs) are collected first.  The
+script file called "collect" illustrates one way to successfully
+create dungeon, although a standard Makefile is included and
+should work with most make implementations.
+
+(The Gnu g77 compiler is presently not able to compile all of
+the source files.)
+
+The steps for creating dungeon and its data base are as follows:
+
+(1) Type "make" or run the script file called collect, and (2) run
+the executable called textcnv.  The latter program will read the ascii
+data base file called TEXTDATA.DAT and will create the binary data base
+file used by the game called DTEXT.DAT.  Unless TEXTDATA.DAT is
+edited for some reason, step (2) will never have to be repeated,
+and the game can be run by simply typing 'dungeon'.
+
+EXECUTABLE CODE:
+Because linux has a habit of changing dynamic libraries from
+time to time, the executable is provided in two flavors:
+
+	dungeon.s -- static version which needs no
+		     external libraries
+
+	dungeon   -- standard version which loads
+		     its library routines at runtime
+
+If the second (small) version works for you, then your libraries
+are compatible with it, and you can get rid of the large version.
+If dungeon fails to execute properly, then dungeon.s should be
+used in its place.
+
+Dungeon requires two other files which contain its data base.
+These are named DINDX.DAT and DTEXT.DAT, and should be named
+exactly as shown (in upper case).  Otherwise, dungeon will complain
+about their absence and will refuse to execute.  Dungeon only
+searches the current directory for these two files, so you'll
+need to make whatever adjustments are necessary if you want to
+locate the data base files elsewhere (usually, a symbolic link
+in the current directory is used to point to them).
+
+You will also find two files named hints.txt and endhints.txt in
+the distribution.  These files contain the solution to the game
+for those who find themselves unable or unwilling to solve the
+puzzles by themselves.
+
+In summary:  To run the game, install dungeon or dungeon.s some-
+where in your path.  Place the files named DINDX.DAT and DTEXT.DAT
+in your default directory, or else create two symbolic links of
+the same name which point to the actual file locations.  When you
+save the game, a third file named DSAVE.DAT will be created in
+the default directory.

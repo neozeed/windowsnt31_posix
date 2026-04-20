@@ -1,0 +1,867 @@
+                  Game Hints for Version 2.5A
+                   by slater@nrlssc.navy.mil
+
+Dungeon (a.k.a. Zork), is rather frustrating in places, and it is
+possible to get stuck for long periods of time.  If you get badly stuck,
+the following hints can be used to get you through a rough spot or even
+to win the game.  They are organized according to puzzle and are labeled
+that way.  The very first of the hints is different though:  It makes
+suggestions about what actions you ought to take in order to win the
+game.
+
+The object of dungeon is deceptively simple:  Find your way into the
+white house, and from there find your way into the dungeon.  Once you've
+found the dungeon, it is your task to wander about it, retrieve all
+treasures, and then to place those treasures inside of a trophy case
+that is to be found in the white house.
+
+GENERAL STRATEGY.  At the start, type "help" followed by "info" to get
+some useful information from the game.  To save you some grief in
+pausing the screens, the results of typing the two commands are
+reproduced in the Appendix.
+
+You can't move about the dungeon without a source of light.  If you
+attempt to do so, you will fall into the slavering fangs of a lurking
+grue (grue = GReat Underground Empire) and get killed - something which
+is to be avoided as a matter of common sense.  The game provides you
+with an obvious source of light at the beginning (the brass lamp), and
+there are two sections of the game where it is absolutely necessary to
+use the brass lamp as a source of light.  Yet, if you attempt to use the
+lamp for the entirety of the game, it will run out of power before you
+can finish.  Thus, you must make sure that you immediately seek out an
+ivory torch which is to be found in the dungeon and, once you have the
+torch, you should extinguish the lamp to save it for later use. Continue
+to carry the lamp with you, because a thief who roams the dungeon can
+come along at any time and steal the ivory torch.  You should recover
+the torch if the thief steals it, or else use the save feature of the
+game to get yourself back to a position where you still have the torch.
+
+The thief is a character who reportedly has never been seen by the light
+of day (which is a white lie in this version), although he certainly
+isn't allowed to enter the house.  He will steal treasures like the
+ivory torch, but only after you've found them.  If you drop objects in
+one of the mazes in an attempt to map them, he also has the annoying
+habit of showing up and picking up whatever you've dropped.  Generally,
+the thief will not attack you unless you've attacked him first or have
+entered his hideaway in the maze.  He will sometimes not rob you if you
+give him something first ("give wrench to thief"), but you can't ever be
+quite sure about that.
+
+Whatever you do, don't be in a big hurry to eliminate him from the
+game.  He's the only one who can open the jeweled egg, and he is also
+useful because he'll transport heavy treasures back to his hideaway
+where you can in turn steal them back.
+
+Remember too that, once you've seen something, the thief is allowed to
+pick it up and carry it about with him.  Don't leave useful objects
+lying around the dungeon once you've found them;  take them back to the
+house.  If you don't, the thief may very well pick them up and then
+later drop them where you'll never find them again.  That could make it
+impossible to win the game.  Objects that you don't want to leave lying
+around include such things as the shovel, screwdriver, pump, lump of
+coal, matchbook, wrench, sharp stick, thin wire, etc.  Obviously, it's
+probably a good policy at first to leave absolutely nothing behind!
+
+You should make a map of the dungeon as you explore it so that you can
+easily return to the more interesting places.  The layout of this
+version is quite different from the commercial versions, so maps from
+Infocom will be of little help.
+
+You won't be able to take objects back to the house unless you can get
+out of the dungeon somehow, and when you first enter it, the only exit
+known to you (a trap door found inside of the white house) gets slammed
+and barred.  There is a chimney you can use to get out, but you can't
+carry anything with you when you do, so it's not much good.  Instead, go
+to the temple (you'll have to find it on your own), stand in front of
+the altar, and then pray. You'll not only be out of the dungeon, but the
+next time you open the trap door, it'll stay that way.
+
+In summary, enter the dungeon and immediately get the ivory torch while
+taking any other small objects you may find along the way.  Extinguish
+the lamp and proceed to the temple where you will stand in front of the
+altar and pray (You'll need a prayer, because you should have taken the
+book and candles from the altar).  You'll wind up in the forest
+somewhere, and will have to find your way back to the white house.  Go
+to the living room, and drop the small objects there for later use.
+Open the trap door, and it will stay open for the remainder of the game.
+
+You must obtain a fairly large number of treasures and put them in the
+trophy case.  If you don't have everything listed below, you can't
+enter the end game:
+
+   A jade figurine.
+   A huge diamond.
+   A bag of coins.
+   A platinum bar.
+   A pearl necklace.
+   A ruby.
+   A crystal trident.
+   A gold coffin.
+   A burned out ivory torch.
+   A sapphire bracelet.
+   A fancy violin.
+   A grail.
+   A trunk with jewels.
+   A chalice.
+   A painting.
+   A pot of gold.
+   A statue.
+   A large emerald.
+   A gold zorkmid.
+   A crown.
+   A stamp.
+   A crystal sphere.
+   A tin of spices.
+   A stack of zorkmid bills.
+   A portrait of J. Pierpont Flathead.
+   A jewel-encrusted egg.
+   A beautiful brass bauble.
+   A clockwork canary.
+   A gold card.
+
+It will take a fair amount of time (and moves) to obtain all of these
+treasures, and you shouldn't be discouraged if the SCORE command
+indicates that you've made several hundred moves without finding all of
+them.  Nevertheless, for those who want more information about the
+location of the treasures, see the "spoilers" which follow (don't read
+beyond this part unless you're willing to have at least a part of the
+game spoiled for you).
+
+-------------------------( spoilers follow )---------------------------
+
+LOCATION OF TREASURES.  The treasures are located in the following rooms
+(which you may not know how to find at this point):
+
+   Jade figurine:               -       Squeaky room
+   Huge diamond:                -       Coal mine machine (if you know how)
+   Bag of coins:                -       Maze near troll room
+   Platinum bar:                -       Loud room
+   Pearl necklace:              -       Broom closet
+   Ruby:                        -       Volcano bottom
+   Crystal trident:             -       Reservoir north
+   Gold coffin:                 -       Egyptian room
+   Burned out ivory torch:      -       At foot of stream (if you know how)
+   Sapphire bracelet:           -       Smelly room
+   Fancy violin:                -       Round room (if you know how)
+   Grail:                       -       Grail room (where else?)
+   Trunk with jewels:           -       Reservoir south
+   Chalice:                     -       thief's hideaway
+   Painting:                    -       Studio
+   Pot of gold:                 -       End of rainbow (seriously)
+   Statue:                      -       Buried in river bank
+   Large emerald:               -       Inside warning buoy
+   Gold zorkmid:                -       Volcano chimney
+   Crown:                       -       Inside of safe in volcano
+   Stamp:                       -       In purple book in volcano
+   Crystal sphere:              -       Cage room south of machine room
+   Tin of spices:               -       East of mad hatter's tea party
+   Stack of zorkmid bills:      -       Bank of Zork vault
+   Portrait of J. Pierpont Flathead. -  South of vault
+   Jewel-encrusted egg:         -       In bird's nest
+   Beautiful brass bauble:      -       Dropped by song bird (if you know how)
+   Clockwork canary:            -       In jewel-encrusted egg
+   Gold card:                   -       Puzzle room
+
+
+ENTERING THE DUNGEON.  The dungeon is entered by moving the rug in the
+living room of the white house and opening the trap door.  Be sure you
+are carrying the lamp, the rope, and at least one weapon (knife or
+sword) so that you can deal with the troll.  Once you enter the dungeon,
+the trap door will be slammed shut, and you'll have to find some other
+exit in order to leave.
+
+EXITING THE DUNGEON.  The dungeon can be exited in at least five ways
+after it is first entered:  1.) You can find a way down the Frigid River
+to the outside world;  2.) you can frighten the Cyclops by saying the
+name of his deadly nemesis;  3.) you can go to the temple, and stand
+before the altar and pray;  4.) you can explore the maze near the troll
+room and unlock the grate to the surface,  or 5.) you can drop
+everything and climb up the chimney that will be found south of the
+basement.  If you elect to climb up the chimney, you'll never be able to
+get anything out of the dungeon, and the trap door will always be
+slammed shut when you reenter the dungeon.  Methods two and four both
+involve traversing a featureless maze.  Thus, method three is the
+preferred one, because it is the easiest way to get out and still hang
+on to all of your possessions; it also turns out that, the next time you
+open the trap door, it will stay open for the remainder of the game.
+
+OBTAINING THE IVORY TORCH.  From the troll room, go n-n-w-e.  Tie the
+rope that you found in the attic to the railing and go down.  Get the
+torch and extinguish the lamp.  You should save the lamp for use
+elsewhere in the dungeon, but should still continue to carry it with you
+in case you encounter the thief (the torch is a treasure, and the thief
+will steal it from you if he can).
+
+SOLVING THE LOUD ROOM.  The loud room contains a platinum bar that you
+naturally want to put in the trophy case, but it has an annoying habit of
+echoing everything you type.  Simply type the word "echo", and the loud
+room will behave like any other room in the dungeon.
+
+SOLVING THE RIDDLE ROOM.  The riddle room requires that you answer a
+riddle before you can proceed through a door which, strangely, leads to
+a broom closet.  To do so, type the word "well", and the door will open.
+You may now enter the broom closet to find a pearl necklace.
+
+THE WELL ROOM.  You probably suspect that the bucket at the bottom of
+the well room ought to be useful, but you may have gotten stuck trying
+to make something interesting happen.  The solution is as follows:
+Bring the bottle of water from the house, and tell the game you want to
+"board bucket".  Once you're in the bucket, pour the water into the
+bottom of the bucket, and you're in for a ride to the top of the well.
+It turns out that this is a construction by the Frobozz Magic Well
+Company (see the inscription at the top of the well), and that there are
+even more interesting things than the well itself at its top.  Disembark
+from the bucket and explore further, remembering that you can return to
+the bottom by filling your bottle with the water that is now in the
+bucket.
+
+TEA PARTY.  When you get to the top of the well, like Alice you'll find
+yourself at the remnants of a tea party.  Among the remnants are four
+pieces of cake, and you should take them all before doing anything else.
+The reason is that eating one cake (the EATME cake) will shrink you to
+the point where you can't reach the remaining cakes on the table, and
+you don't want to wind up in that situation.  You DO want to get
+smaller, because a treasure is found immediately to the east of the tea
+party in a tunnel you would otherwise be too large to enter.  Eat the
+EATME cake and proceed east.  There, you'll find a flask of poison and a
+puddle of water, and your object is to somehow remove the water so that
+you can see what was covered by it.  One of the cakes has "evaporate"
+written on the icing, but the print is too small to read.  If you look
+at it through the flask (which acts as a magnifying glass), you'll find
+out which one to select.  Your major problem here will be to find out
+how to phrase the command so that the game understands what you want
+it to do.  Beware:  One of the cakes will explode if put in the puddle,
+so be sure you've found the right one.  Throw the cake at the puddle,
+and retrieve the tin of spices which is revealed when the sewage
+evaporates.  Go west to leave the tunnel and then eat the blue cake to
+return to your proper size.  You are now ready to find a robot who will
+in turn help you solve the machine room.
+
+MACHINE ROOM.  Northwest of the tea party, you'll find a robot along
+with a piece of paper containing instructions for its use.  To solve the
+next sections of the dungeon, enter the following commands:
+
+        tell robot, go east
+        east
+        tell robot, push triangular button
+        tell robot, go south
+        south
+        get sphere
+        tell robot, lift cage
+        get sphere
+        north
+
+You will have avoided electrocution by using the robot; you will have
+released a treasure into the round room (and stilled the round room),
+and you will have saved yourself from a nasty trap in the cage room.  It
+will be a little difficult to get back to the top of the well due to
+some changes you precipitated, but keep on trying until you succeed.
+
+Don't forget to retrieve the treasure from the round room before the
+thief finds it.
+
+THIEF'S LAIR.  There is a way to get into the thief's hideout by going
+through the maze, but that's not covered here.  Instead, the use of a
+magic word is discussed, because you don't have to do battle with the
+thief if you enter by that means.  Go to the temple and stand by the
+granite wall (west from the altar).  Say the word "treasure" and you'll
+find yourself in the thief's lair;  say the word "temple" and the
+obvious thing will happen.  You will find a chalice in the thief's lair
+and a puzzle room to the east of it.  If you go down from the lair,
+you'll be in the presence of a cyclops who will eventually prepare you
+for dinner if you hang around long enough.  The solution to the puzzle
+and the defeat of the cyclops are covered in separate sections.
+
+THE CYCLOPS.  Once you find yourself in the presence of the cyclops, you
+can only get away by going into the maze.  You can't defeat the cyclops
+with any weapons you have, but you can frighten him so badly that he'll
+leave the game.  You merely need to say the word "Ulysses" (one of the
+names of his deadly nemesis) and he'll knock down a wall in his haste to
+leave.  The hole will lead back into the white house, and that can be
+extremely useful.
+
+BAG OF COINS.  From the troll room, go s,n,e,w,u and you'll find the
+remains of a luckless adventurer in the maze.  Take the bag of coins and
+take the keys if you like (they are not used in this walkthru, but can
+be used to unlock a grate to the surface that can be found in the maze).
+Under no circumstances should you touch anything else until you at least
+save the game.  The adventurer is haunted, and the other items have
+unexpected side effects when you attempt to use them.  You should
+probably find out about the effects in preparation for the questions the
+dungeon master will ask in the end game.  It is left as an exercise for
+the reader to find the way back out of the maze.
+
+FLOOD CONTROL DAM #3.  Until Infocom came out with its commercial games,
+it was never clear what happened to flood control dams one and two.  It
+seems that Lord Dimwit Flathead the Excessive, not wanting to appear to
+be a novice at this kind of thing, arbitrarily decided to start with dam
+number three, somewhat to the chagrin of his underlings.  It was also at
+about this time that he decided to hide his crown in a safe placed in a
+volcano chimney, but that's getting ahead of the story.  You need to
+know how to make something interesting happen in this section without
+getting killed, and that's what's covered next.
+
+Once you find the dam, proceed north to the lobby and take the brochure
+and the matchbook.  The brochure is not only interesting reading, but it
+makes excellent book burning material in another section of the game,
+and you'll need the matches in three other places.  Go to the control
+room and take the screwdriver and the wrench (the tube of gunk isn't
+really needed).  Push the yellow button (click) and go back to the dam
+itself. Use the wrench to turn the bolt (turn bolt with wrench), drop
+the wrench, and go elsewhere in the game for a while.  The sluice gates
+have been opened, and once the water level gets low enough you'll find a
+trunk of jewels, a tire pump, and a crystal trident in places where the
+water has receded.  It takes time (moves) for this to happen, so you
+might as well use your energies elsewhere.  Once the water level does
+drop, be sure to get the tire pump.  If you can't carry the trunk of
+jewels or the trident, don't worry about it:  Let the thief take them to
+his hideaway and then go steal them back!  The tire pump is absolutely
+necessary to a boating trip you'll want to take on the Frigid River, and
+you should attach maximum importance to getting it.  You'll also need
+the shovel and the sharp stick that are both lying some place in the
+dungeon, so hang on to them too when you come across them.
+
+RAFTING ON THE RIVER.  If you go down from Flood Control Dam #3, you'll
+find a pile of plastic and a sharp stick.  The pile of plastic is
+actually an inflatable boat, and the stick is a magical wand which has
+the unfortunate habit of puncturing the boat if you're not careful.  To
+avoid the latter occurrence, bring the paper bag with you and place the
+stick in it.  Close the bag until you need to use the stick elsewhere
+(the game can't "see" the stick now).  You can go puncture-free from
+this point onward.
+
+Be sure that you have the shovel, the pump and the paper bag with you
+when you first go "down" from the dam.  If you have to go back for any
+of them, you'll need to take the boat too because the thief may decide
+to move the boat to places unknown while you're away.
+
+Inflate the boat with the pump, and board the boat.  You can now begin
+sailing the Frigid River (hello, sailor) in search of treasures.  Read
+the leaflet for complete operating details and warranty limitations.
+
+Unlike the commercial version, waiting around for something to happen
+while you're in the boat won't work.  You must say "launch" and then you
+must give explicit commands to make the boat move.  While you're in the
+boat, "d" is interpreted as "down stream" and is the command you want to
+use to approach Aragain Falls at the end of the river.  There's only one
+hidden treasure to be found during that journey - a small nondescript
+statue buried in the sand of the river bank (that's why you need the
+shovel).  Here's a completely rote set of commands to recover all
+treasures and to get past Aragain Falls while doing so:
+
+launch
+d,d,d
+get buoy, open buoy
+w
+disembark
+dig with shovel
+dig with shovel
+dig with shovel
+dig with shovel
+get statue
+s,s
+open sack
+get stick
+wave stick
+e,e,get pot,se
+u,u,w
+
+At this point you should have found an emerald inside of the warning
+buoy, you should have found a pot of gold at the end of the rainbow, and
+you should be in the forest near the white house.  You will also have
+missed some of the more interesting things that can happen when you make
+the wrong choices, and you should probably go back and try out some
+things such as exploring the barrel that's at the end of the path.  In
+any case, the Frigid River section of the game has been solved, and it's
+time to move on to something else.
+
+THE BANK OF ZORK.  When you enter the basement for the first time, you
+can go south and then west to discover an artist's studio and the
+entrance to the fabled Bank of Zork.  The bank contains one of the
+nastiest puzzles in the game, because the method of solving it is
+cleverly made dependent upon the LAST room you have entered while trying
+to figure it out.  The bank contains a curtain of light you'll
+eventually find, and the whole puzzle revolves around that curtain and
+its immediate vicinity.  Therefore, you must find it and do a little
+exploring around it to get a feel for this particular construction by
+one of the Frobozz Magic Companies.  The first thing you will discover
+is that attempting to pass through the curtain by giving the command "n"
+just doesn't work.  The sentence wanted by the game is "walk into
+curtain", and in fact you'll need to walk into two walls before this
+puzzle is completed.  So what's so clever about this puzzle?  It turns
+out that, if you enter the area of the curtain of light from any
+direction EXCEPT the one where the portrait of J. Pierpoint Flathead is
+to be found (and it's a treasure), you can "walk into curtain" and find
+yourself in a viewing room where you can easily get out of the bank.
+
+The series of commands needed to solve this section can be entered from
+a position at the curtain of light as follows:
+
+s
+take portrait, n, drop portrait
+walk into curtain
+walk into south wall
+walk into curtain
+take bills
+walk into north wall
+drop bills
+e (or w)
+(return to the curtain of light again)
+take all
+walk into curtain
+(you can now leave the bank by going south)
+
+A longer explanation of what this does is as follows:  When you've come
+from the area of the portrait, the command "walk into curtain" at first
+takes you to a bare room which seems to have no exits.  You then "walk
+into south wall" to return to the curtain, and then "walk into curtain"
+again.  This time, you're in the vault and will be able to take some
+Zorkmid bills.  Immediately "walk into north wall" to return to the
+curtain, and then drop all treasures you found (hesitation in the vault
+will get you killed).  Exit to the east or west, and then return once
+again to the curtain.  Get your treasures and "walk into curtain".
+Because you haven't been to the room just south of the curtain, you'll
+find yourself in the viewing room and will be able to leave the bank
+easily by going south.  Not mentioned here has been the alarm system,
+because it is not activated at all if you follow the preceding
+directions.
+
+JEWEL ENCRUSTED EGG.  Somewhere in the forest, you'll find a tree which
+stands out from the rest.  Climb the tree, and get the egg from the
+nest.  A small clockwork canary is contained in the egg, but you don't
+have the necessary dexterity to open it.  Take the egg into the dungeon
+and drop it so that the thief will find it.  When you next go to his
+hideaway, you'll find the egg properly opened, and you can take both
+treasures (canary and egg) back to the house for proper storage in the
+trophy case.  Before you abandon the canary, take it out into the
+forest.  When the game tells you that you can hear a song bird nearby,
+wind the canary.  The song bird will drop a beautiful brass bauble at
+your feet which is worth one point as a treasure.  Take the bauble and
+the canary and place them both in the trophy case.  At this time you
+can eliminate the thief from the game if you desire, because he has no
+further critical tasks to perform.
+
+THE MIRROR ROOM.  In case you're wondering what the significance of the
+mirror rooms may be (and the dungeon master may ask you about them), go
+to one of them and "rub mirror".  The earth will shake, and you'll be
+transported to the other mirror room.  This can be a handy way to move
+about the dungeon, especially if you insist on removing the gold coffin
+from the egyptian room on your own (you really should let the thief do
+it).
+
+HADES.  Just east of one of the mirror rooms is a small cave that has a
+dark, forbidding staircase leading downward.  If you follow the
+staircase, you'll find yourself at the entrance to Hades, but spirits
+will bar your way if you attempt to enter.  What you need, of course, is
+an exorcism, and the materials are lying around the dungeon - mostly in
+the area of the temple.  You need a bell, book, and candles (and some
+matches to light them).  The candles are lit when you find them on the
+altar, but they'll be blown out by the time you get them to the
+entrance.  Unlike the commercial version, you don't need to ring the
+bell or read the book, but you do need to light the candles and say the
+word "exorcise".  The spirits will be banished, but you'll be
+disappointed once you enter:  There are no treasures to be found in
+Hades - only ways to do yourself in (keep your hands offa the poles!).
+Why go to the trouble at all, then?  The answer is that the end game can
+be reached from here, but only if you've scored the 585 points required
+to do so.
+
+THE COAL MINE.  This is one of the most difficult sections of the game,
+because it is necessary to repeatedly traverse a maze with only the
+light of the lamp available.  Since the lamp *must* be used to solve the
+volcano, it is important to conserve the batteries as much as possible
+when solving these puzzles.  Bring along the clove of garlic that was
+found in the bag at the start of the game, and also bring along the
+torch, the lamp, and the screwdriver that you found near the dam (you
+DID save it didn't you?).  The garlic is used to repulse a deranged
+vampire bat from Wumpus, the torch is used to provide light at the
+bottom of a strange shaft found just inside of the mine entrance, and
+the screwdriver is used to operate a machine which will be found in the
+coal mine.
+
+From the slide room, go north and northeast to get to the shaft room.
+From this point, go directly to a place where a lump of coal is to be
+found and then return.  This is accomplished with the following
+commands:
+
+n,ne,sw,ne,ne,se,ne,nw,d
+d
+ne
+get coal
+s,u
+u,s,se,s,e,s
+
+This will return you to the shaft room with a lump of coal that should
+now be placed in the basket along with the torch and the screwdriver.
+Drop everything else, except for the lamp, and lower the basket (you
+should now be in the dark).  Light the lamp and proceed to the ladder
+bottom by entering the first two lines given above.  Go south from the
+ladder bottom and drop all items (you can't fit through the tunnel
+otherwise).  Go sw and take everything from the basket.  Go east and
+open the lid of the machine.  Put the lump of coal in the machine, close
+the lid, and turn the switch with the screwdriver.  Open the lid, take
+the diamond out and go nw to return to the shaft.  Place everything in
+the basket, and return to the shaft room (see the commands above).
+Raise the basket, and take the diamond and the torch.  Extinguish the
+lamp to conserve its batteries, and retrieve all objects you dropped
+during your last trip through here.  You are now ready to solve the
+remaining puzzles of the coal mine with relative ease.
+
+From the shaft room, go north and then west.  Drop the torch, and then
+go down into what is a gas-filled room (the torch would have caused an
+explosion).  Light the lamp, retrieve the sapphire bracelet, and go back
+up.  Extinguish the lamp, take the torch, and return to the shaft room
+(e, s).
+
+Be sure you have the clove of garlic, and then go w, nw and west.  This
+will place you in the room with a vampire bat who would have otherwise
+carried you off into a random part of the maze but which is now holding
+its nose.  Take the jade figurine, and proceed back to the slide room.
+Go down the slide and return to the living room with all of the
+treasures from this section of the game.
+
+THE PUZZLE ROOM.  Just east of the thief's hideaway is a puzzle room
+which is interesting because it is the only place in the game that crude
+graphics are routinely used.  If you go down into the puzzle room (as
+you eventually must), the object is to get back out after retrieving a
+gold card which will be found therein.  There are a number of movable
+walls in the room which are made of sandstone, and a number of fixed
+walls which are made of granite.  Two of the sandstone walls have a
+ladder attached to them, and the object is to move one of those walls to
+a position where you can climb the ladder and get back out of the hole
+you entered.  The wall you want to place in that position is the
+FURTHEST wall from the point of entry, and NOT the wall just south of
+it.  Once you enter the room, type "push east wall" and that wall will
+slide back one position.  The game will begin to use graphics to show
+you the layout of the room.
+
+Explore the room a little without pushing any more sandstone walls.
+Make yourself a larger map that shows you the whole room, rather than
+using the limited information the game gives to you (it limits itself to
+showing only the positions you can reach in one move).  If the sandstone
+walls are properly positioned (by you), it is pretty easy to get the far
+wall with the ladder into position so that you can climb out of the
+room.  In the process, you MUST move a sandstone wall which has a
+depression underneath it in which a gold card is to be found.  Take the
+card, and try not to get into the situation in which the card must be
+inserted into a slot near a door you'll find in order to escape the
+puzzle room.
+
+There are at least two solutions to this puzzle, and it is really not as
+difficult as might be imagined.  Nevertheless, here is a "canned" set of
+commands which can be used to get the card and to exit the puzzle.  The
+solution which is given is a long solution.
+
+From the bottom of the hole which leads into the puzzle room (no walls
+pushed yet), do the following:
+
+push east wall, w
+push south wall,e,s,e,s
+push south wall,n,n,e
+push south wall, get card, push south wall,e,e,n
+push west wall, push west wall, push west wall,n,w
+push south wall,e,s
+push west wall
+e,e,n,n,n,n, push east wall
+w,s,s,s,e,e,n,n
+push west wall,n,w
+push south wall, push south wall,n,e,e,s,s,w
+push west wall, push west wall, s,w
+push north wall, push north wall, push north wall
+w,n,up
+
+EXPLORING THE VOLCANO.  If you still haven't found the volcano, it's
+because the entrance is cleverly hidden.  Also, the method of finding
+the volcano guarantees that you will eventually find yourself in the
+dark because the lamp will be the only source of light left.  Thus, you
+don't want to tackle this portion of the game until all other sections
+have been solved.  To do so is to assure a no-win game!
+
+Bring the FCD #3 brochure, the matches, the brick which feels like clay,
+and the wire with you as you embark on this journey.  The brick is
+plastique, the wire is a fuse, and the pair can be used to blast open a
+safe left behind by Lord Dimwit Flathead.  Put the wire in the brick in
+preparation for having a blast, and proceed to the egyptian room.  Go up
+to find the glacier (the mass of ice you should have noticed) and throw
+the torch at the ice.  The torch will melt the ice, but it will go out
+in the process (you need to retrieve it at the bottom of the stream to
+win the game, but you should wait until after the balloon ride to do
+so).  To the west you will find what turns out to be the entrance to the
+volcano and the beginnings of a hot air balloon ride.
+
+The balloon is easy to find, and you'll also find a moby ruby along the
+way.  It is probably best to leave the ruby behind and to pick both it
+and the torch up on your return from the balloon ride.  Proceed to the
+balloon, and board it. Put the brochure in the receptacle and light the
+brochure with a match (light match, light paper with match).  The
+balloon will inflate and will shortly leave the ground to sail up the
+chimney of the volcano. Naturally, there are some pitfalls, but with
+care you can avoid all of them.  As you wait (wait command), the balloon
+will slowly rise, and you have to take care not to get too close to the
+rim of the volcano.  Also, the balloon (manufactured by the Frobozz
+Magic Balloon Company - who else?) responds to the same set of commands
+as the boat, but don't assume that a "land" command is permanent.  If
+you don't take some action to secure the balloon, it'll float away and
+leave you stranded on some ledge or other. Fortunately, the proprietors
+of the dungeon have provided mooring hooks to avoid such an
+embarrassment, and the hooks should be used wherever found.  The game
+sometimes gets confused when told to "tie wire to hook" because the
+brick has a wire (a fuse) in it, and the game doesn't know which wire
+you mean.  The sentence "tie braided wire to hook" will work as
+intended.
+
+Go as high in the volcano as you can.  To do this, wait until the game
+tells you that you are 100 feet above the floor of the volcano and then
+execute a "wait" command three times.  This will place you near the rim,
+and you should execute the following series of commands:
+
+land
+close receptacle
+disembark
+tie braided wire to hook
+s
+put brick in hole
+light match
+light fuse with match
+n
+(the plastique bomb blows the safe)
+s
+get crown
+n
+untie braided wire
+board basket
+launch
+
+There is time to get the card that's in the safe, but bypassing it gives
+you one more turn as a buffer before the room collapses.  It is
+important to get in the balloon and launch it rapidly.  The ledge on
+which you were just standing will also collapse, and it can hit the
+balloon even if you're very careful.  Execute the wait command twice
+more, and you will find yourself even with another ledge (make sure it's
+NOT the viewing ledge).  Use the following commands to finish retrieving
+the volcano's treasures:
+
+land
+disembark
+tie braided wire to hook
+get zorkmid
+s
+open purple book
+get stamp
+n
+untie braided wire
+board basket
+launch
+
+You ought to examine all of the treasures at some point, because the
+Dungeon Master may quiz you about them during the end game.  Waiting
+will return you to the bottom of the volcano, at which time you can
+disembark, retrieve the ruby, and go find the burned out ivory torch at
+the location of the stream view.  Return to the living room and place
+your treasures in the trophy case.  This should have been the last
+section you solved, because you probably won't be able to last too much
+longer now that the lamp is your only source of light.  If this was the
+last section, you should have amassed all of the points the normal game
+of dungeon can confer (585); if you don't have 585 points, you need to
+go back and see if you found all of the treasures.  If you do have 585
+points, you'll have properly achieved the rank of "cheater", because it
+seems that hardly anyone solves this game without cheating - just as you
+are doing right now!
+
+If you have the full 585 points, you are now ready to enter the end game
+(if you can find it).  The last sections of these hints tell you how to
+do that.
+
+A BUG OR TWO:  When you first began your balloon ride, you should have
+noticed a blue label that contains directions for using the balloon.
+That label behaves like any other object in the dungeon UNLESS you
+attempt to burn it in the receptacle.  If you do so, it will appear to
+work just fine, but when it gets consumed by the flames the whole
+program can collapse and you can find yourself back at the unix prompt.
+On the other hand, the label may work just fine, and the success or
+failure of a "blue label burn" seems to be dependent upon things that
+have gone before.  This bug seems to exist in most forms of the game,
+and could even be found in CompuServe's version (Banshi) when it was
+available.  The reason seems to lie in the way in which the blue label
+was first made to appear to the adventurer - a way which could lead to a
+massive logic error if the label is ever destroyed while it is inside of
+the balloon.  Apparently, the bug is thorny enough that it has never
+been corrected, and the adventurer is warned that burning blue labels
+can be hazardous to the existence of the universe.
+
+While on the subject of bugs, we list a minor one that hardly anyone is
+likely to notice:  If the thief takes the rope, he will next drop it in
+a form which is invisible to the "look" command.  Nonetheless, the
+intrepid adventurer can get it back again if (s)he happens to issue a
+"take all" command in the room where the rope has been dropped by the
+thief.  The directions given earlier make it unnecessary to ever get a
+used rope back.
+
+THE END GAME.  If you have scored 585 points, issue the "wait" command
+repeatedly until it is announced to you that you have now become one of
+the chosen of Zork (yes, the game slips up and calls itself Zork at this
+point).  Go to the crypt, open it, and enter it.  Close the crypt and
+extinguish the lamp.  At this point, you will be transported to the end
+game in just a few moves, and you will encounter a whole new set of
+diabolical traps.  The end game can't be saved, so pay attention to the
+instructions for the "incant" command which will be given to you as the
+end game starts.  Should you get killed, you'll need to do an
+incantation to get back to the start of the end game.
+
+The puzzles in the end game are somehow more straightforward than those
+found elsewhere in Dungeon / Zork, and you really ought to try to solve
+them without further reference to cheat sheets.  If you get really stuck,
+you can use the separate endgame hints file (endhints.txt) to cheat
+yourself all of the way to the rank of Dungeon Master.
+
+THE DEBUGGING TOOL.  The original implementors needed a way to alter
+things in the game so that they could be sure it was working properly.
+Called the general debugging tool (gdt), it is entered by typing "gdt"
+to the game.  Gdt only recognizes upper case letters, so place your caps
+lock in the on position, and type BEAR when asked for the password.
+You'll now be inside of GDT (and on your own) and will have the power to
+do some really weird things to the game if you like.
+
+                          APPENDIX
+
+                     HELP COMMAND OUTPUT
+
+   The 'BRIEF' command suppresses printing of long room descriptions
+for rooms which have been visited.  The 'SUPERBRIEF' command suppresses
+printing of long room descriptions for all rooms.  The 'VERBOSE'
+command restores long descriptions.
+   The 'INFO' command prints information which might give some idea
+of what the game is about.
+   The 'QUIT' command prints your score and asks whether you wish
+to continue playing.
+   The 'SAVE' command saves the state of the game for later continuation.
+   The 'RESTORE' command restores a saved game.
+   The 'INVENTORY' command lists the objects in your possession.
+   The 'LOOK' command prints a description of your surroundings.
+   The 'SCORE' command prints your current score and ranking.
+   The 'TIME' command tells you how long you have been playing.
+   The 'DIAGNOSE' command reports on your injuries, if any.
+
+Command abbreviations:
+
+   The 'INVENTORY' command may be abbreviated 'I'.
+   The 'LOOK' command may be abbreviated 'L'.
+   The 'QUIT' command may be abbreviated 'Q'.
+
+Containment:
+
+   Some objects can contain other objects.  Many such containers can
+be opened and closed.  The rest are always open.   They may or may
+not be transparent.  For you to access (e.g., take) an object
+which is in a container, the container must be open.  For you
+to see such an object, the container must be either open or
+transparent.  Containers have a capacity, and objects have sizes;
+the number of objects which will fit therefore depends on their
+sizes.  You may put any object you have access to (it need not be
+in your hands) into any other object.  At some point, the program
+will attempt to pick it up if you don't already have it, which
+process may fail if you're carrying too much.  Although containers
+can contain other containers, the program doesn't access more than
+one level down.
+
+Fighting:
+
+   Occupants of the dungeon will, as a rule, fight back when
+attacked.  In some cases, they may attack even if unprovoked.
+Useful verbs here are 'ATTACK <villain> WITH <weapon>', 'KILL',
+etc.  Knife-throwing may or may not be useful.  You have a
+fighting strength which varies with time.  Being in a fight,
+getting killed, and being injured all lower this strength.
+Strength is regained with time.  Thus, it is not a good idea to
+fight someone immediately after being killed.  Other details
+should become apparent after a few melees or deaths.
+
+Command parser:
+
+   A command is one line of text terminated by a carriage return.
+For reasons of simplicity, all words are distinguished by their
+first six letters.  All others are ignored.  For example, typing
+'DISASSEMBLE THE ENCYCLOPEDIA' is not only meaningless, it also
+creates excess effort for your fingers.  Note that this trunca-
+tion may produce ambiguities in the intepretation of longer words.
+
+   You are dealing with a fairly stupid parser, which understands
+the following types of things--
+
+   Actions:
+   Among the more obvious of these, such as TAKE, PUT, DROP, etc.
+   Fairly general forms of these may be used, such as PICK UP,
+   PUT DOWN, etc.
+
+   Directions:
+   NORTH, SOUTH, UP, DOWN, etc. and their various abbreviations.
+   Other more obscure directions (LAND, CROSS) are appropriate in
+   only certain situations.
+
+   Objects:
+   Most objects have names and can be referenced by them.
+
+   Adjectives:
+   Some adjectives are understood and required when there are
+   two objects which can be referenced with the same 'name' (e.g.,
+   DOORs, BUTTONs).
+
+   Prepositions:
+   It may be necessary in some cases to include prepositions, but
+   the parser attempts to handle cases which aren't ambiguous
+   without.  Thus 'GIVE CAR TO DEMON' will work, as will 'GIVE DEMON
+   CAR'.  'GIVE CAR DEMON' probably won't do anything interesting.
+   When a preposition is used, it should be appropriate;  'GIVE CAR
+   WITH DEMON' won't parse.
+
+   Sentences:
+   The parser understands a reasonable number of syntactic construc-
+   tions.  In particular, multiple commands (separated by commas)
+   can be placed on the same line.
+
+   Ambiguity:
+   The parser tries to be clever about what to do in the case of
+   actions which require objects that are not explicitly specified.
+   If there is only one possible object, the parser will assume
+   that it should be used.  Otherwise, the parser will ask.
+   Most questions asked by the parser can be answered.
+
+------------------(END OF HELP COMMAND OUTPUT)------------------------
+
+                      INFO COMMAND OUTPUT
+
+Welcome to Dungeon!
+
+   You are near a large dungeon, which is reputed to contain vast
+quantities of treasure.   Naturally, you wish to acquire some of it.
+In order to do so, you must of course remove it from the dungeon.  To
+receive full credit for it, you must deposit it safely in the trophy
+case in the living room of the house.
+
+   In addition to valuables, the dungeon contains various objects
+which may or may not be useful in your attempt to get rich.  You may
+need sources of light, since dungeons are often dark, and weapons,
+since dungeons often have unfriendly things wandering about.  Reading
+material is scattered around the dungeon as well;  some of it
+is rumored to be useful.
+
+   To determine how successful you have been, a score is kept.
+When you find a valuable object and pick it up, you receive a
+certain number of points, which depends on the difficulty of finding
+the object.  You receive extra points for transporting the treasure
+safely to the living room and placing it in the trophy case.  In
+addition, some particularly interesting rooms have a value associated
+with visiting them.  The only penalty is for getting yourself killed,
+which you may do only twice.
+
+   Of special note is a thief (always carrying a large bag) who
+likes to wander around in the dungeon (he has never been seen by the
+light of day).  He likes to take things.  Since he steals for pleasure
+rather than profit and is somewhat sadistic, he only takes things which
+you have seen.  Although he prefers valuables, sometimes in his haste
+he may take something which is worthless.  From time to time, he examines
+his take and discards objects which he doesn't like.  He may occas-
+ionally stop in a room you are visiting, but more often he just wanders
+through and rips you off (he is a skilled pickpocket).
+
+------------------(END OF INFO COMMAND OUTPUT)------------------------

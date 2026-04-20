@@ -1,0 +1,26 @@
+@del /q gnulib2.lib
+call comp2 L_adddi3
+call comp2 L_anddi3
+call comp2 L_iordi3
+call comp2 L_xordi3
+call comp2 L_one_cmpldi2
+call comp2 L_lshldi3
+call comp2 L_lshrdi3
+call comp2 L_ashldi3
+call comp2 L_ashrdi3
+call comp2 L_subdi3
+call comp2 L_muldi3
+call comp2 L_divdi3
+call comp2 L_moddi3
+call comp2 L_udivdi3
+call comp2 L_umoddi3
+call comp2 L_negdi2
+call comp2 L_bdiv
+call comp2 L_cmpdi2
+call comp2 L_ucmpdi2
+call comp2 L_fixunsdfdi
+call comp2 L_fixdfdi
+call comp2 L_floatdidf
+call comp2 L_varargs
+lib32 -subsystem:posix -machine:i386 -out:gnulib2.lib *.obj
+@del /q *.obj

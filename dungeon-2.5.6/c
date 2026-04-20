@@ -1,0 +1,2 @@
+f2c -T/tmp -A -C -Nn802 $1.f
+xgcc -c -I. $1.c

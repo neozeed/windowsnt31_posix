@@ -1,0 +1,39 @@
+List of source files to dungeon version 2.5.6.  Files marked with
+an asterisk (*) have been modified or added since the last dist-
+ribution.
+
+DINDX.DAT
+DTEXT.DAT
+File.list	*
+Makefile	*
+README		*
+TEXTDATA.DAT
+actors.f
+ballop.f
+clockr.f
+collect
+demons.f
+dgame.f
+dmain.f
+dso.f
+dsub.f
+dungeon.doc
+dungeon
+dungeon.s
+dverb1.f
+dverb2.f
+endhints.txt
+gdt.f
+gettim.C
+hints.txt
+machdep.f
+nobjs.f		*
+np.f
+np2.f
+objcts.f 	*
+rooms.f
+sverbs.f
+textcnv.f
+updates.log	*
+verbs.f
+villns.f

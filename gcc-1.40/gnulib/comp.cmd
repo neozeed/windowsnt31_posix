@@ -1,0 +1,1 @@
+cl386 -c -I.. -D%1 ../gnulib.c /Fo%1.obj

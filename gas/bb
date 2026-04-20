@@ -1,0 +1,1 @@
+make a386 CFLAGS=-DUSG -g

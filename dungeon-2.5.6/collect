@@ -1,0 +1,57 @@
+#!/bin/csh
+# Invoke f2c with an undocumented table expansion option:
+echo Compiling with f2c
+f2c -Nn802 actors.f
+f2c -Nn802 ballop.f
+f2c -Nn802 clockr.f
+f2c -Nn802 demons.f
+f2c -Nn802 dgame.f
+f2c -Nn802 dmain.f
+f2c -Nn802 dso.f
+f2c -Nn802 dsub.f
+f2c -Nn802 dverb1.f
+f2c -Nn802 dverb2.f
+f2c -Nn802 gdt.f
+f2c -Nn802 machdep.f
+f2c -Nn802 nobjs.f
+f2c -Nn802 np.f
+f2c -Nn802 np2.f
+f2c -Nn802 objcts.f
+f2c -Nn802 rooms.f
+f2c -Nn802 sverbs.f
+f2c -Nn802 textcnv.f
+f2c -Nn802 verbs.f
+f2c -Nn802 villns.f
+
+# create textcnv
+
+cc -o textcnv textcnv.c -lf2c -lm -lc
+rm -f textcnv.c
+
+# compile the gettim.C program so fortran can find GMT time.
+# (the suffix .C is used so that 'rm -f *.c' can clean things
+# up without removing the one C routine which must be kept.
+# Since gcc defaults to C++ with such a suffix, override it.)
+
+echo cc -c -O -x c gettim.C
+cc -c -O -x c gettim.C
+
+# compile all f2c generated programs
+
+foreach a (*.c)
+	echo cc -c -O $a
+	cc -c -O $a
+end
+
+# make a library out of every .o file, and then correct it.
+
+\rm -f libdungeon.a
+ar rcuv libdungeon.a *.o
+ar d libdungeon.a dmain.o np2.o
+ranlib libdungeon.a
+
+# collect dungeon, and include dmain and np2 first, because
+# both contain initialized data blocks.
+
+cc -s -o dungeon dmain.o np2.o -L. -ldungeon -lf2c -lm -lc
+cc -s -static -o dungeon.s dmain.o np2.o -L. -ldungeon -lf2c -lm -lc

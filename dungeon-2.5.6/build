@@ -1,0 +1,22 @@
+sh ./c actors
+sh ./c ballop
+sh ./c clockr
+sh ./c demons
+sh ./c dgame
+sh ./c dmain
+sh ./c dso
+sh ./c dsub
+sh ./c dverb1
+sh ./c dverb2
+sh ./c gdt
+sh ./c machdep
+sh ./c nobjs
+sh ./c np
+sh ./c np2
+sh ./c objcts
+sh ./c rooms
+sh ./c sverbs
+sh ./c textcnv
+sh ./c verbs
+sh ./c villns
+cc -c gettim.C -o gettim.o

@@ -1,0 +1,1 @@
+cmd1 xgcc -O -g -D_X86_=1 -D_POSIX_ -DWIN32   -c gzip.c

@@ -1,0 +1,48 @@
+   File Name		Archive #	Description
+----------------------------------------------------------
+MANIFEST                   1	This shipping list
+.                          1	
+./v41                      1	
+./v41/ATARI_ST             1	Atari ST-peculiar files 
+./v41/ATARI_ST/MAKEFILE.ST  1	
+./v41/ATARI_ST/MAKEIT      6	(for Turbo C)
+./v41/ATARI_ST/README.ST   5	
+./v41/ATARI_ST/TCM         6	
+./v41/ATARI_ST/TLINK.OPT   5	
+./v41/ATARI_ST/UNZIP.PRJ   6	
+./v41/ATARI_ST/tc_cfg.uue  5	Uuencoded binary file
+./v41/History.41           4	Development history
+./v41/MAC                  1	Macintosh-peculiar files
+./v41/MAC/macfile.c        5	
+./v41/MAC/macstat.c        1	
+./v41/MAC/macstat.h        6	
+./v41/MSDOS                1	MSDOS-peculiar files
+./v41/MSDOS/MAKEFILE.DOS   5	
+./v41/MSDOS/UNZIP.PRJ      6	
+./v41/MSDOS/tcconfig.uue   6	Uuencoded binary file
+./v41/Makefile             4	
+./v41/OS2                  1	OS2-peculiar files
+./v41/OS2/Readme.os2       6	
+./v41/OS2/unzip.def        6	
+./v41/VMS                  1	VMS-peculiar files
+./v41/VMS/DESCRIP.MMS      6	
+./v41/VMS/VMS_MAKE.COM     6	
+./v41/VMS/VMSnotes         5	
+./v41/VMS/fatdef.h         6	
+./v41/VMS/fchdef.h         6	
+./v41/VMS/fjndef.h         2	
+./v41/VMS/vms_attr.c       5	
+./v41/file_io.c            3	
+./v41/mapname.c            4	
+./v41/match.c              4	
+./v41/misc.c               3	
+./v41/unimplod.c           3	
+./v41/unreduce.c           5	
+./v41/unshrink.c           5	
+./v41/unzip.1              5	
+./v41/unzip.c.1            1	unzip.c, part 1
+./v41/unzip.c.2            2	unzip.c, part 2
+./v41/unzip.h              2	
+./v41/unzip.man            5	
+./v41/unzip41.descr        6	Description
+./v41/ziprules.txt         5	Rules for contributors

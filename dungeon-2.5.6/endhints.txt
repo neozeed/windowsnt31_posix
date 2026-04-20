@@ -1,0 +1,92 @@
+                            End Game Hints
+                       by slater@nrlssc.navy.mil
+
+Okay, Cretin:  You've taken the easy way out and consulted this file
+about the end game.  You obviously have no shame - something which makes
+you a definite candidate for the Chosen of Zork.  You can also find the
+solution in the commercial hints booklet (yes, we lied a little),
+because this particular section remained unchanged when Infocom wrote
+Zork III.
+
+You start the end game with your back literally to the wall, and with
+only a sword and lamp in your possession.  Go down the steps which lie
+before you and proceed north to the room which has the beam of light on
+the floor.  "Break beam with sword", go south, and "push button".  Go
+back north, take the sword, and continue north until you see the mirror
+which has swung open.  "Enter", and take a look around at the very
+strange room you have entered.
+
+You are actually in a wooden box which can be made to slide along a long
+hallway.  You need to use the box as "cover" in order to avoid being
+bludgeoned to death by two stone guardians who are midway down the hall.
+If the box shakes, or if the guardians see you, it's curtains.  So be
+careful to pay attention to the following directions.
+
+First of all, you need to rotate the box so that it will slide along the
+guide channel that's carved in the floor.  There is more than one way to
+do that, but all methods start with lifting the short pole so that the
+box can rotate.  Do the following:
+
+lift short pole
+push red wall
+push red wall
+lower short pole
+
+At this point, the box is facing north and is firmly anchored to the
+slot again so that it won't shake.  Push the mahogany wall three times
+(your sword will glow very brightly as you pass the guardians), and then
+lift the short pole again.  You want to rotate the box until the pine
+wall (which is really a door) is facing north.  Push the red wall until
+the compass rose indicates south, and then lower the short pole again.
+Push the pine wall, and it will open.  Go north, and you will be facing
+a door which the dungeon master must open before you can proceed.
+
+Knock on the door.  The dungeon master will answer it, and will demand
+that you answer three questions before you can enter.  The questions are
+chosen randomly from the list which follows.  Even if you "mess up", it
+turns out that you can give the correct answer long after your time has
+supposedly expired.  In other words, you have unlimited time to come up
+with the correct answers to three of the following:
+
+  "From which room can one enter the robber's hideaway without passing
+   through the cyclops room?"
+
+  "Beside the Temple, to which room is it possible to go from the
+   Altar?"
+
+  "What is the absolute minimum specified value of the Zorkmid
+   treasures, in Zorkmids?"
+
+  "What object is of use in determining the function of the iced cakes?"
+
+  "What can be done to the mirror that is useful?"
+
+  "The taking of which object offends the ghosts?"
+
+  "What object in the dungeon is haunted?"
+
+  "In which room is the phrase 'Hello sailor' useful?"
+ 
+
+Once the dungeon master opens the door (and he may never do that if
+you've been a complete cheat on your way here), you'll find yourself in
+a series of hallways which you want to follow to their northernmost
+point. The dungeon master will follow you, but don't let that worry you.
+What you need to do is to get to the dial that's at the parapet at the
+north end and to use it to control a jail cell which is nearby. To win
+the game, do the following:
+
+turn dial to 4
+push button
+tell master, stay
+s
+open door
+s
+tell master, turn dial to 6
+tell master, push button
+open bronze door
+s
+
+You will find yourself in the dungeon master's office, and will in fact
+find that YOU are now the dungeon master.  Somehow, it isn't all you
+thought it'd be. ...

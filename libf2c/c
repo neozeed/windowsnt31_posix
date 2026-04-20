@@ -1,0 +1,1 @@
+cc -c -DSkip_f2c_Undefs -DUSE_CLOCK -DNO_ONEXIT -DNO_My_ctype -DNO_ISATTY $1

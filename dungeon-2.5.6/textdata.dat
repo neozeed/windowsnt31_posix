@@ -1,0 +1,2967 @@
+    1Welcome to Dungeon.                    This version created 30-AUG-90. 
+    2Done.  
+    3Revision history:  
+    330-AUG-90  Portable non-DEC version
+    318-JUL-80  Transportable data base file (V2.5A).  
+    328-FEB-80  Compressed text file (V2.4A).   
+    315-NOV-79  Bug fixes (V2.3A). 
+    318-JAN-79  Revised DECUS version (V2.2A).  
+    310-OCT-78  Puzzle Room (V2.1A).  
+    310-SEP-78  Endgame (V2.0A). 
+    310-AUG-78  DECUS version (V1.1B).  
+    314-JUN-78  Public version with parser (V1.1A).  
+    34-MAR-78   Debugging version (V1.0A).  
+    4Useful commands: 
+    4  
+    4   The 'BRIEF' command suppresses printing of long room descriptions 
+    4for rooms which have been visited.  The 'SUPERBRIEF' command suppresses 
+    4printing of long room descriptions for all rooms.  The 'VERBOSE'   
+    4command restores long descriptions.  
+    4   The 'INFO' command prints information which might give some idea  
+    4of what the game is about. 
+    4   The 'QUIT' command prints your score and asks whether you wish  
+    4to continue playing.  
+    4   The 'SAVE' command saves the state of the game for later continuation. 
+    4   The 'RESTORE' command restores a saved game.  
+    4   The 'INVENTORY' command lists the objects in your possession.   
+    4   The 'LOOK' command prints a description of your surroundings.   
+    4   The 'SCORE' command prints your current score and ranking. 
+    4   The 'TIME' command tells you how long you have been playing. 
+    4   The 'DIAGNOSE' command reports on your injuries, if any.   
+    4  
+    4Command abbreviations:  
+    4  
+    4   The 'INVENTORY' command may be abbreviated 'I'.  
+    4   The 'LOOK' command may be abbreviated 'L'.  
+    4   The 'QUIT' command may be abbreviated 'Q'.  
+    4  
+    4Containment:  
+    4  
+    4   Some objects can contain other objects.  Many such containers can 
+    4be opened and closed.  The rest are always open.   They may or may 
+    4not be transparent.  For you to access (e.g., take) an object 
+    4which is in a container, the container must be open.  For you 
+    4to see such an object, the container must be either open or   
+    4transparent.  Containers have a capacity, and objects have sizes;  
+    4the number of objects which will fit therefore depends on their 
+    4sizes.  You may put any object you have access to (it need not be  
+    4in your hands) into any other object.  At some point, the program  
+    4will attempt to pick it up if you don't already have it, which  
+    4process may fail if you're carrying too much.  Although containers 
+    4can contain other containers, the program doesn't access more than 
+    4one level down.  
+    4  
+    4Fighting:   
+    4  
+    4   Occupants of the dungeon will, as a rule, fight back when  
+    4attacked.  In some cases, they may attack even if unprovoked. 
+    4Useful verbs here are 'ATTACK <villain> WITH <weapon>', 'KILL', 
+    4etc.  Knife-throwing may or may not be useful.  You have a 
+    4fighting strength which varies with time.  Being in a fight,  
+    4getting killed, and being injured all lower this strength. 
+    4Strength is regained with time.  Thus, it is not a good idea to 
+    4fight someone immediately after being killed.  Other details  
+    4should become apparent after a few melees or deaths.  
+    4  
+    4Command parser:  
+    4  
+    4   A command is one line of text terminated by a carriage return.  
+    4For reasons of simplicity, all words are distinguished by their 
+    4first six letters.  All others are ignored.  For example, typing   
+    4'DISASSEMBLE THE ENCYCLOPEDIA' is not only meaningless, it also 
+    4creates excess effort for your fingers.  Note that this trunca- 
+    4tion may produce ambiguities in the intepretation of longer words. 
+    4  
+    4   You are dealing with a fairly stupid parser, which understands  
+    4the following types of things-- 
+    4  
+    4   Actions: 
+    4   Among the more obvious of these, such as TAKE, PUT, DROP, etc. 
+    4   Fairly general forms of these may be used, such as PICK UP,  
+    4   PUT DOWN, etc.  
+    4  
+    4   Directions:   
+    4   NORTH, SOUTH, UP, DOWN, etc. and their various abbreviations.  
+    4   Other more obscure directions (LAND, CROSS) are appropriate in 
+    4   only certain situations.  
+    4  
+    4   Objects: 
+    4   Most objects have names and can be referenced by them.  
+    4  
+    4   Adjectives:   
+    4   Some adjectives are understood and required when there are   
+    4   two objects which can be referenced with the same 'name' (e.g.,   
+    4   DOORs, BUTTONs).  
+    4  
+    4   Prepositions: 
+    4   It may be necessary in some cases to include prepositions, but 
+    4   the parser attempts to handle cases which aren't ambiguous   
+    4   without.  Thus 'GIVE CAR TO DEMON' will work, as will 'GIVE DEMON 
+    4   CAR'.  'GIVE CAR DEMON' probably won't do anything interesting.   
+    4   When a preposition is used, it should be appropriate;  'GIVE CAR  
+    4   WITH DEMON' won't parse.  
+    4  
+    4   Sentences: 
+    4   The parser understands a reasonable number of syntactic construc- 
+    4   tions.  In particular, multiple commands (separated by commas) 
+    4   can be placed on the same line.  
+    4  
+    4   Ambiguity: 
+    4   The parser tries to be clever about what to do in the case of  
+    4   actions which require objects that are not explicitly specified.  
+    4   If there is only one possible object, the parser will assume 
+    4   that it should be used.  Otherwise, the parser will ask.  
+    4   Most questions asked by the parser can be answered.  
+    5Welcome to Dungeon!   
+    5  
+    5   You are near a large dungeon, which is reputed to contain vast  
+    5quantities of treasure.   Naturally, you wish to acquire some of it. 
+    5In order to do so, you must of course remove it from the dungeon.  To   
+    5receive full credit for it, you must deposit it safely in the trophy 
+    5case in the living room of the house.  
+    5  
+    5   In addition to valuables, the dungeon contains various objects  
+    5which may or may not be useful in your attempt to get rich.  You may 
+    5need sources of light, since dungeons are often dark, and weapons, 
+    5since dungeons often have unfriendly things wandering about.  Reading   
+    5material is scattered around the dungeon as well;  some of it 
+    5is rumored to be useful.   
+    5  
+    5   To determine how successful you have been, a score is kept.  
+    5When you find a valuable object and pick it up, you receive a 
+    5certain number of points, which depends on the difficulty of finding 
+    5the object.  You receive extra points for transporting the treasure  
+    5safely to the living room and placing it in the trophy case.  In   
+    5addition, some particularly interesting rooms have a value associated   
+    5with visiting them.  The only penalty is for getting yourself killed,   
+    5which you may do only twice. 
+    5  
+    5   Of special note is a thief (always carrying a large bag) who 
+    5likes to wander around in the dungeon (he has never been seen by the 
+    5light of day).  He likes to take things.  Since he steals for pleasure  
+    5rather than profit and is somewhat sadistic, he only takes things which 
+    5you have seen.  Although he prefers valuables, sometimes in his haste   
+    5he may take something which is worthless.  From time to time, he examines 
+    5his take and discards objects which he doesn't like.  He may occas-  
+    5ionally stop in a room you are visiting, but more often he just wanders 
+    5through and rips you off (he is a skilled pickpocket).   
+    6Please answer the question.  
+    7You clearly are a suicidal maniac.  We don't allow psychotics in the 
+    7dungeon, since they may harm other adventurers.  Your remains will be   
+    7installed in the land of the living dead, where your fellow adventurers 
+    7may gloat over them.  
+    8What?  You don't trust me?  Why, only last week I patched a running  
+    8RSX system and it survived for over thirty seconds.  Oh, well.  
+    9Now let me see...  
+    9Well, we weren't quite able to restore your state.  You can't have 
+    9everything. 
+   10Do you wish me to try to patch you?  
+   11You are behind the white house.  In one corner of the house   
+   11there is a window which is #.   
+   12open   
+   13slightly ajar 
+   14You are in the kitchen of the white house.  A table seems to have  
+   14been used recently for the preparation of food.  A passage leads to  
+   14the west, and a dark staircase can be seen leading upward.  To the 
+   14east is a small window which is #.   
+   15You are in the living room.  There is a door to the east.  To the west  
+   15is a wooden door with strange gothic lettering, which appears to be  
+   15nailed shut.  
+   16You are in the living room.  There is a door to the east.  To the west  
+   16is a cyclops-shaped hole in an old wooden door, above which is some  
+   16strange gothic lettering.  
+   17In the center of the room is a large oriental rug.  
+   18In the center of the room is a closed trap door. 
+   19In the center of the room is an open trap door.  
+   20There is a rug lying next to an open trap door.  
+   21You are in a dark and damp cellar with a narrow passageway leading 
+   21east, and a crawlway to the south.  To the west is the bottom of a 
+   21steep metal ramp which is unclimbable. 
+   22The door crashes shut, and you hear someone barring it.  
+   23You are in a small room near the maze.  There are twisty 
+   23passages in the immediate vicinity.  
+   24Above you is a grating locked with a skull-and-crossbones lock. 
+   25Above you is an open grating with sunlight pouring in.   
+   26Above you is a grating. 
+   27You are in a clearing, with a forest surrounding you on the west   
+   27and south.  
+   28There is a grating securely fastened into the ground. 
+   29There is an open grating descending into darkness.  
+   30A grating appears on the ground.  
+   31You are in a long room on the south shore of a large reservoir. 
+   32You are in a long room, to the north of which was formerly a  
+   32reservoir.  However, with the water level lowered, there is merely 
+   32a wide stream running through the center of the room. 
+   33There is a western exit, a passageway south, and a steep pathway   
+   33climbing up along the edge of a cliff. 
+   34You are on the reservoir.  Beaches can be seen north and south. 
+   34Upstream a small stream enters the reservoir through a narrow 
+   34cleft in the rocks.  The dam can be seen downstream.  
+   35You are on what used to be a large reservoir, but which is now a   
+   35large mud pile.  There are 'shores' to the north and south.   
+   36You are in a large cavernous room, north of a large reservoir.  
+   37You are in a large cavernous room, to the south of which was formerly   
+   37a reservoir.  However, with the water level lowered, there is merely 
+   37a wide stream running through the center of the room. 
+   38There is a tunnel leaving the room to the north. 
+   39You are in a large room with giant icicles hanging from the walls  
+   39and ceiling.  There are passages to the north and east.  
+   40Part of the glacier has been melted. 
+   41There is a large passageway leading westward.  
+   42You are in a large square room with tall ceilings.  There are exits  
+   42on the north, east, and west sides of the room.  On the south wall is   
+   42an enormous mirror which fills the entire wall.  
+   43Unfortunately, you have managed to destroy it by your reckless  
+   43actions. 
+   44            BOOOOOOOOOM 
+   45You are in large room which seems to be air conditioned.  In one   
+   45corner there is a machine (?) which is shaped somewhat like a clothes   
+   45dryer.  On the 'panel' there is a switch which is labelled in an   
+   45obscure dialect of Swahili.  Fortunately, I know this dialect, and the  
+   45label translates to 'START'.  The switch does not appear to be manip-   
+   45ulable by any human hand (unless the fingers are about 1/16 by 1/4 
+   45inch).  On the front of the machine is a large lid, which is #. 
+   46closed 
+   47The cave is very windy at the moment, and your candles have blown out.  
+   48You are in a small room that has only one door, to the east.  
+   49In the corner of the room on the ceiling is a large vampire bat who  
+   49is obviously deranged and holding his nose. 
+   50A deranged vampire bat (a reject from WUMPUS) swoops down  
+   50from the ceiling and lifts you away... 
+   51You are at the periphery of a large dome, which forms the ceiling  
+   51of another room below.  Protecting you from a precipitous drop is a  
+   51wooden railing which circles the dome. 
+   52Hanging down from the railing is a rope which ends about ten feet  
+   52from the floor below. 
+   53I'm afraid that the leap you attempted has done you in.  
+   54You are in a large room with a prominent doorway leading to a down 
+   54staircase.  To the west is a narrow twisting tunnel.  Above you is a 
+   54large dome painted with scenes depicting elvish hacking rites.  Up 
+   54around the edge of the dome (20 feet up) is a wooden railing.  In the   
+   54center of the room there is a white marble pedestal.  
+   55A large piece of rope descends from the railing above, ending some 
+   55five feet above your head. 
+   56You are in a circular room with passages off in eight directions.  
+   57Your compass needle spins wildly, and you cannot get your bearings.  
+   58According to Prof. TAA of MIT Tech, the rapidly changing magnetic  
+   58fields in the room are so intense as to cause you to be electrocuted.   
+   58I really don't know, but in any event, something has killed you.   
+   59You are outside a large gateway, on which is inscribed:  
+   59  
+   59   "Abandon every hope, all ye who enter here."  
+   59  
+   59The gate is open.  Through it you can see a desolation, with a pile of  
+   59mangled corpses in one corner.  Thousands of voices, lamenting some  
+   59hideous fate, can be heard.  
+   60The way through the gate is barred by evil spirits, who jeer at your 
+   60attempts to pass.  
+   61There is a clap of thunder, and a voice echoes through the 
+   61cavern:  "Begone, chomper!"  Apparently, the voice thinks you 
+   61are an evil spirit and dismisses you from the land of the living.  
+   62You are not equipped for an exorcism.  
+   63There is a clap of thunder, and a voice echoes through the 
+   63cavern:  "Begone, fiends!"  The spirits, sensing the presense 
+   63of a greater power, flee through the walls. 
+   64You have entered the land of the living dead, a large desolate  
+   64room.  Although it is apparently uninhabited, you can hear the  
+   64sounds of thousands of lost souls weeping and moaning.  In 
+   64the east corner are stacked the remains of dozens of previous 
+   64adventurers who were less fortunate than yourself.  To the east 
+   64is an ornate passage, apparently recently constructed.   
+   65Amid the desolation, you spot what appears to be your head,   
+   65tastefully impaled on the end of a long pole.  
+   66You are standing on the top of flood control dam #3, which was  
+   66quite a tourist attraction in times far distant.  There are paths  
+   66to the north, south, east, and down. 
+   67The sluice gates on the dam are closed.  Behind the dam, there can 
+   67be seen a wide lake.  A small stream is formed by the runoff from  
+   67the lake.   
+   68It appears that the dam has been opened, since the water level behind   
+   68the dam is low and the sluice gate is open.  Water is rushing down-  
+   68stream through the gates.  
+   69There is a control panel here.  There is a large metal bolt on the 
+   69panel.  Above the bolt is a small green plastic bubble.  
+   70The green bubble is glowing. 
+   71The water level is now up to your ankles. 
+   72The water level is now up to your shins.  
+   73The water level is now up to your knees.  
+   74The water level is now up to your hips.   
+   75The water level is now up to your waist.  
+   76The water level is now up to your chest.  
+   77The water level is now up to your neck.   
+   78The water level is now over your head. 
+   79The water level is now high in your lungs.  
+   80The room is full of water and cannot be entered. 
+   81I'm afraid you have done drowned yourself.  
+   82You hear a scream of anguish as you violate the robber's hideaway. 
+   82Using passages unknown to you, he rushes to its defense. 
+   83The thief gestures mysteriously, and the treasures in the room  
+   83suddenly vanish. 
+   84Something seems funny about the feel of the buoy.   
+   85Oh dear, you seem to have gone over Aragain Falls.  Not a very  
+   85smart thing to do, apparently.  
+   86You seem to be digging a hole here.  
+   87The hole is getting deeper, but that's about it. 
+   88You are surrounded by a wall of sand on all sides.  
+   89You can see a small statue in the sand.   
+   90The wall collapses, smothering you.  
+   91There is nothing to dig into here.   
+   92You are digging into a pile of bat guano. 
+   93You seem to be getting knee deep in guano.  
+   94You are covered with bat turds, cretin.   
+   95This is getting you nowhere. 
+   96You are at the top of Aragain Falls, an enormous waterfall with a  
+   96drop of about 450 feet.  The only path here is on the north end.   
+   96There is a man-sized barrel here which you could fit into. 
+   97A beautiful rainbow can be seen over the falls and to the east. 
+   98A solid rainbow spans the falls.  
+   99According to Prof. TAA of MIT Tech, the rapidly changing magnetic  
+   99fields in the room are so intense as to fry all the delicate innards 
+   99of the robot.  I really don't know, but in any event, smoke is coming   
+   99out of its ears, and it has stopped moving. 
+  100You are on a wide ledge high into the volcano.  The rim of the  
+  100volcano is about 200 feet above, and there is a precipitous drop   
+  100below to the floor.   
+  101The way to the south is blocked by rubble.  
+  102There is a small door to the south.  
+  103The way to the south is blocked by rubble.  
+  104You are in a dusty old room which is virtually featureless, except 
+  104for an exit on the north size.  
+  105Imbedded in the far wall is a rusty old box.  It appears that 
+  105the box is somewhat damaged, since an oblong hole has been 
+  105chipped out of the front of it. 
+  106On the far wall is a rusty box, whose door has been blown off.  
+  107You are in a room with a low ceiling which is circular in shape.   
+  107There are exits to the east and southeast.  
+  108As you enter, your compass starts spinning wildly.  
+  109The ledge has collapsed and cannot be landed on. 
+  110The ledge collapses, giving you a narrow escape. 
+  111The force of the explosion has caused the ledge to collapse belatedly.  
+  112The ledge collapses, leaving you with no place to land.  
+  113The ledge collapses, probably as a result of the explosion.  A large 
+  113chunk of it, which is attached to the hook, drags you down to the  
+  113ground.  Fatally.  
+  114The way is blocked by debris from an explosion.  
+  115You may recall your recent explosion.  Well, probably as a result of 
+  115that, you hear an ominous rumbling, as if one of the rooms in the  
+  115dungeon has collapsed.  
+  116The room trembles and 50,000 pounds of rock fall on you, 
+  116turning you into a pancake.  
+  117The house shakes, and the ceiling of the room you're in collapses, 
+  117turning you into a pancake.  
+  118A volcano gnome seems to walk straight out of the wall and says,   
+  118"I have a very busy appointment schedule and little time to waste on 
+  118trespassers, but for a very small fee, I'll show you the way out." 
+  118You notice that the gnome is nervously glancing at his watch. 
+  119Suddenly a sinister, wraithlike figure, cloaked and hooded, appears  
+  119seeming to float in the air before you.  In a low, almost inaudible  
+  119voice he says, "I welcome you to the ranks of the chosen of Zork.  You  
+  119have persisted through many trials and tests and have overcome them  
+  119all.  One such as yourself is fit to join even the implementers!"  
+  119He then raises his oaken staff and, chuckling, drifts away like a  
+  119wisp of smoke, his laughter fading in the distance. 
+  120The best method to discuss problems is over the most appropriate
+  120Usenet newsgroup, currently rec.games.misc
+  120  
+  120  
+  120  
+  120  
+  121Unfortunately, it is impossible to tell directions in here.   
+  122The slag turns out to be rather insubstantial and crumbles into dust 
+  122at your touch.  It must not have been very valuable.  
+  123The lid opens.   
+  124The lid closes.  
+  125Look around.  
+  126You think it isn't?   
+  127I think you've already done that. 
+  128The trophy case is securely fastened to the wall (perhaps to foil any   
+  128attempt by robbers to remove it). 
+  129The bottle hits the far wall and is decimated. 
+  130The basket is at the other end of the chain.   
+  131A brilliant maneuver destroys the bottle. 
+  132The water splashes on the walls and evaporates immediately.   
+  133The water spills to the floor and evaporates immediately.  
+  134It is not tied to anything.  
+  135There is nothing it can be tied to.  
+  136The rope is already attached.   
+  137The rope drops over the side and comes within ten feet of the floor. 
+  138I see no objects here.  
+  139Although you tied it incorrectly, the rope becomes free. 
+  140The rope drops gently to the floor below. 
+  141The rope is tied to the railing.  
+  142The lamp has smashed into the floor, and the light has gone out.   
+  143The rug is too heavy to lift, but in trying to raise it you   
+  143notice an irregularity beneath it.   
+  144The rug is extremely heavy and cannot be carried.   
+  145With a great effort, the rug is moved to one side of the room.  
+  145With the rug moved, the dusty cover of a closed trap door appears. 
+  146Having moved the carpet previously, you find it impossible 
+  146to move it again.  
+  147You are stopped by a cloud of poisonous gas.   
+  148Time passes... and you die from some obscure poisoning.  
+  149The gnome glances at his watch.  "Oops!  I'm late for an 
+  149an appointment."  He disappears, leaving you alone on the shelf.   
+  150Now you've done it.  It seems that the brick has other properties  
+  150than weight, namely the ability to blow you to smithereens.   
+  151There is an explosion nearby.   
+  152The wire rapidly burns into nothing. 
+  153The match has gone out. 
+  154The lamp appears to be getting dimmer. 
+  155The lamp is dying. 
+  156The candles grow short. 
+  157The candles are very short.  
+  158The leaves burn, and the neighbors start to complain. 
+  159The sight of someone carrying a pile of burning leaves so offends  
+  159the neighbors that they come over and put you out.  
+  160As you pick up the rusty knife, your sword gives a single pulse 
+  160of blinding blue light. 
+  161As the knife approaches its victim, your mind is submerged by an   
+  161overmastering will.  Slowly, your hand turns, until the rusty blade  
+  161is an inch from your neck.  The knife seems almost to sing as it   
+  161savagely cuts your throat. 
+  162A ghost appears in the room and is appalled by your desecration 
+  162of the remains of a fellow adventurer.  He casts a curse on   
+  162all of your valuables and orders them banished to the land of 
+  162the living dead.  The ghost leaves, muttering obscenities. 
+  163There is a rumble from deep within the earth, and the room shakes. 
+  164There is an ugly person staring at you.   
+  165The mirror is broken into many pieces. 
+  166Nobody but a greedy surgeon would allow you to attempt that trick. 
+  167You have broken the mirror.  I hope you have a seven years supply of 
+  167good luck available.  
+  168Haven't you done enough already?  
+  169The torch hits the glacier and explodes into a great ball of flame,  
+  169devouring the glacier.  The water from the melting glacier rushes  
+  169downstream, carrying the torch with it.  In place of the glacier,  
+  169there is a passageway leading west.  
+  170The melting glacier seems to have carried the torch away, leaving  
+  170you in the dark. 
+  171The glacier is unmoved by your ridiculous attempt.  
+  172Part of the glacier melts, drowning you under a torrent of water.  
+  173burned out ivory torch  
+  174There is a burned out ivory torch here.   
+  175The basket is raised to the top of the shaft.  
+  176The basket is lowered to the bottom of the shaft.   
+  177The cage is securely fastened to the iron chain. 
+  178You seem unable to affect these spirits.  
+  179How can you attack a spirit with material objects?  
+  180The book is open to page 569.   
+  181As hard as you try, the book cannot be closed. 
+  182A booming voice says, "Wrong, cretin!", and you notice that you 
+  182have turned into a pile of dust.  
+  183I'm afraid that you have run out of matches.   
+  184One of the matches starts to burn.   
+  185The match is out.  
+  186The tube refuses to accept anything. 
+  187The cyclops yawns and stares at the thing that woke him. 
+  188The cyclops, tired of all your games and trickery, eats you.  
+  188The cyclops says, "Mmm mmm!  Just like mom used to make 'em." 
+  189The cyclops says, "Mmm mmm!  I love hot peppers!  But oh, could I use   
+  189a drink.  Perhaps I could drink the blood of that thing."  From the  
+  189gleam in his eye, it could be surmised that you are 'that thing'.  
+  190The cyclops looks tired and quickly falls fast asleep (what did you  
+  190put in that drink, anyway?). 
+  191The cyclops is apparently not thirsty at the moment and refuses 
+  191your generous gesture.  
+  192The cyclops may be hungry, but there is a limit. 
+  193The cyclops is not so stupid as to eat that!   
+  194The cyclops seems somewhat agitated. 
+  195The cyclops appears to be getting more agitated. 
+  196The cyclops is moving about the room, looking for something.  
+  197The cyclops was looking for salt and pepper.  I think he is gathering   
+  197condiments for his upcoming snack.   
+  198The cyclops is moving toward you in an unfriendly manner.  
+  199You have two choices:  1. Leave  2. Become dinner.  
+  200Your actions don't appear to be doing much harm to the cyclops, but  
+  200they do not exactly lower your insurance premiums, either. 
+  201The cyclops ignores all injuries to his body with a shrug. 
+  202The cyclops is rather heavy and doesn't take kindly to being grabbed.   
+  203You cannot tie the cyclops, although he is fit to be tied. 
+  204Realizing just in time that you'd be stabbed in the back if you 
+  204tried to take the chalice, you return to the fray.  
+  205Congratulations!  Unlike the other vandals, who merely stole the   
+  205artist's masterpieces, you have destroyed one. 
+  206worthless piece of canvas  
+  207There is a worthless piece of canvas here.  
+  208With great effort, you open the window far enough to allow passage.  
+  209The window closes (more easily than it opened).  
+  210The bolt won't turn with your best effort.  
+  211The sluice gates open, and water pours through the dam.  
+  212The sluice gates close, and water starts to collect behind the dam.  
+  213You can't do that! 
+  214The grating is locked.  
+  215The grating opens to reveal trees above you.   
+  216The grating opens. 
+  217The grating is unlocked.   
+  218The door reluctantly opens to reveal a rickety staircase descending  
+  218into darkness.   
+  219The door swings shut and closes.  
+  220The door is locked from above.  
+  221The door cannot be opened. 
+  222You cannot burn this door. 
+  223The door is invulnerable.  
+  224You cannot damage this door. 
+  225The door is still under warranty. 
+  226The machine comes to life (figuratively) with a dazzling display   
+  226of colored lights and bizarre noises.  After a few moments, the 
+  226excitement fades.  
+  227The machine doesn't seem to want to do anything. 
+  228A force keeps you from taking the bodies. 
+  229The voice of the guardian of the dungeon booms out from the darkness,   
+  229"Your disrespect has cost you your life!" and places your head on a pole. 
+  230The lights within the room shut off. 
+  231The lights within the room come on.  
+  232Click. 
+  233There is a rumbling sound, and a stream of water appears to burst  
+  233from the east wall of the room (apparently, a leak has occurred 
+  233in a pipe). 
+  234The blue button appears to be jammed.  
+  235The boat must be on the ground to be inflated. 
+  236The boat inflates and appears seaworthy.  
+  237You don't have enough lung power to inflate it.  
+  238This boat will not inflate since some cretin put a hole in it.  
+  239Well done.  The boat is repaired. 
+  240There is a hissing sound and the boat deflates.  
+  241The boat deflates. 
+  242You can't deflate the boat while you're in it. 
+  243The boat must be on the ground to be deflated. 
+  244Very good.  
+  245The rainbow seems to have become somewhat run of the mill. 
+  246Suddenly, the rainbow appears to become solid and, I venture, 
+  246walkable (I think the giveaway was the stairs and bannister). 
+  247The structural integrity of the rainbow seems to have declined  
+  247precipitously, leaving you about 450 feet in the air, supported 
+  247by water vapor.  
+  248The ballon is fastened to the hook.  
+  249The balloon is not tied to anything. 
+  250The wire falls off the hook. 
+  251The box is imbedded in the wall.  
+  252What do you expect, BOOM?  
+  253The box has no door!  
+  254The box is rusted and will not open. 
+  255The box is not open, chomper!   
+  256The wire starts to burn.   
+  257"Thank you very much," he says.  "I don't believe I've seen a 
+  257# as beautiful.  Follow me."  A door appears on the west end  
+  257of the ledge.  Through the door, you can see a narrow chimney 
+  257sloping downward.  The gnome moves quickly, and he disappears 
+  257from sight. 
+  258"That wasn't quite what I had in mind", he says, crunching 
+  258the # in his rock hard hands.   
+  259The gnome appears increasingly nervous.   
+  260Although the implementers are gone, they foresaw that some cretin  
+  260would tamper with their remains.  Therefore, they took steps to 
+  260prevent this. 
+  261Unfortunately, we've run out of poles.  Therefore, in punishment for 
+  261your transgression, we shall deprive you of all your valuables, and  
+  261of your life. 
+  262Congratulations!  You've managed to break all the bottles.  Fortunately 
+  262for your feet, they were made of magic glass and disappear immediately. 
+  263As you reach for the sphere, an iron cage falls from the ceiling   
+  263to entrap you.  To make matters worse, poisonous gas starts coming 
+  263into the room.   
+  264As the robot reaches for sphere, an iron cage falls from the  
+  264ceiling.  The robot attempts to fend it off but is trapped below it. 
+  264Alas, the robot short circuits in his vain attempt to escape and   
+  264crushes the sphere beneath him as he falls to the floor. 
+  265There is a giant spark, and you are fried to a crisp. 
+  266Nothing seems to happen.   
+  267The whirring increases in intensity slightly.  
+  268The whirring decreases in intensity slightly.  
+  269A dull thump is heard in the distance. 
+  270The flask breaks into pieces.   
+  271Here noxious vapors prevent your entry.   
+  272Just before you pass out, you notice that the vapors from the 
+  272flask's contents are fatal.  
+  273Suddenly, the room appears to have become very large. 
+  274The only writing visible is a capital E.  The rest is too small to 
+  274be clearly visible.   
+  275You can't see through that!  
+  276The letters appear larger but are still too small to read. 
+  277The icing, now visible, says "EXPLODE".   
+  278The icing, now visible, says "EVAPORATE". 
+  279The icing, now visible, says "ENLARGE".   
+  280The pool of water evaporates, revealing a tin of rare spices. 
+  281The door to the room seems to be blocked by sticky orange rubble   
+  281from an explosion.  Probably some careless adventurer was playing  
+  281with blasting cakes.  
+  282You have been blasted to smithereens (whatever they are).  
+  283The room around you seems to be getting smaller. 
+  284The room seems to have become too small to hold you.  It seems  
+  284that the walls are not as compressable as your body, which is 
+  284more or less demolished.   
+  285The robot is injured (being of shoddy construction) and falls to the 
+  285floor in a pile of garbage, which disintegrates before your eyes.  
+  286How romantic! 
+  287If you must... Poof, you're dead! 
+  288The grue is a sinister, lurking presence in the dark places of the 
+  288earth.  Its favorite diet is adventurers, but its insatiable  
+  288appetite is tempered by its fear of light.  No grue has ever been  
+  288seen by the light of day, and few have survived its fearsome jaws  
+  288to tell the tale.  
+  289There is no grue here, but I'm sure there is at least one lurking in 
+  289the darkness nearby.  I wouldn't let my light go out if I were you!  
+  290The bucket rises and comes to a stop.  
+  291The bucket descends and comes to a stop.  
+  292You notice that the # has burned out, and that 
+  292the cloth bag is starting to deflate.  
+  293I hope you have more light than from a #. 
+  294I didn't realize that adventurers are stupid enough to light a  
+  294# in a room which reeks of coal gas.  Fortunately,  
+  294there is still justice in the world. 
+  295Oh, dear.  It appears that the smell coming from this room was coal  
+  295gas.  I would have thought twice about carrying a # in here.  
+  296There is now a puddle in the middle of the #.  
+  297The water leaks out of the # and evaporates immediately. 
+  298You won't melt it with a #.  
+  299The bolt can't be turned with your #.  
+  300It seems that a # won't do.  
+  301With a #?   
+  302The robot gladly takes the # and nods his headlike  
+  302appendage in thanks.  
+  303A #?  Surely you jest.  
+  304He who puts his hand to the plow and looks back is not fit for the 
+  304kingdom of winners.  In any case, 'BACK' doesn't work.   
+  305You'll have to speak up if you expect me to hear you. 
+  306I don't know how to do that.  I win in all cases.   
+  307At your service! 
+  308The Frobozz Company, Ltd., created, owns, and operates this dungeon. 
+  309Well, FOO, BAR, and BLETCH to you too! 
+  310It could very well be too late. 
+  311The dungeon is ALWAYS open (always room for one more).   
+  312Naturally!  
+  313AAAARRRRRRGGGGGGGGHHHHHHHHHH!   
+  314Very good.  Now you can go to the second grade.  
+  315Have you tried hopping around the dungeon, too?  
+  316Are you enjoying yourself? 
+  317Wheeeeee!   
+  318Do you expect me to applaud? 
+  319Such language in a high-class establishment like this!   
+  320You ought to be ashamed of yourself. 
+  321It's not so bad.  You could have been killed already. 
+  322Tough shit, asshole.  
+  323Oh, dear.  Such language from a supposedly winning adventurer!  
+  324That word is henceforth replaced with DUNGEON. 
+  325I think you are taking this thing for granite. 
+  326Brief descriptions.   
+  327Maximum verbosity. 
+  328No long descriptions. 
+  329You can see:  A #. 
+  330Swimming is not allowed in this dungeon.  
+  331I don't really see how. 
+  332I think that swimming is best performed in water.   
+  333Perhaps it is your head that is swimming. 
+  334Wasn't he an Indian?  
+  335I didn't think you would really try to go over the falls in a 
+  335barrel.  It seems that some 450 feet below, you were met by a number 
+  335of unfriendly rocks and boulders, causing your immediate demise.   
+  336Wasn't he a sailor?   
+  337The cyclops, hearing the name of his deadly nemesis, flees the room  
+  337by knocking down the wall on the north size of the room. 
+  338There is a clap of thunder and the east door opens. 
+  339Well what?  
+  340If you pray enough, your prayers may be answered.   
+  341Nothing happens. 
+  342I don't really know how to do that.  
+  343Do you wish to leave the game?  
+  344Underneath the pile of leaves is a grating. 
+  345Underneath the rug is a closed trap door. 
+  346Hello. 
+  347Good day.   
+  348Nice weather we've been having lately. 
+  349Goodbye. 
+  350Here, nothing happens.  
+  351Nothing happens here. 
+  352I think that phrase is getting a bit worn out. 
+  353You seem to be repeating yourself.   
+  354The # bows his head to you in greeting.   
+  355I think that only schizophrenics say hello to a #.  
+  356It is impossible to read in the dark.  
+  357How does one look through a #?  
+  358How can I read a #?   
+  359How, exactly, do I ring that?   
+  360Ding, dong. 
+  361I'm not sure that a # can be melted. 
+  362If you wish, but I can't understand why.  
+  363Dental hygiene is highly recommended, but I'm not sure what   
+  363you want to brush them with. 
+  364A nice idea, but with a #? 
+  365Well, you seem to have been brushing your teeth with some sort of  
+  365glue.  As a result, your mouth gets glued together with your nose, 
+  365and you die of respiratory failure.  
+  366Unfortunately, the troll can't hear you.  
+  367Inflating it further would probably burst it.  
+  368How can you inflate that?  
+  369Come on, now! 
+  370The # isn't sleeping. 
+  371This has no effect.   
+  372does not seem to do anything useful  
+  373is not notably useful 
+  374isn't very interesting  
+  375doesn't appear worthwhile  
+  376has no effect 
+  377doesn't do anything   
+  378Kicking a # #.   
+  379Waving a # #. 
+  380Playing in this way with a # #. 
+  381Fiddling with a # #.  
+  382Pushing the # #. 
+  383I don't think so.  
+  384This cannot be tied, so it cannot be untied!   
+  385How can you tie that to anything? 
+  386You can't tie the # to that. 
+  387You could certainly never tie the # with that! 
+  388The # struggles and you cannot tie him up.  
+  389Why would you tie up a #?  
+  390You can't turn that.  
+  391You certainly can't turn it with a #.  
+  392Digging with the # is slow and tedious.   
+  393Digging with a # is silly. 
+  394I don't think that anybody is home.  
+  395Why knock on a #?  
+  396It sounds like there is something inside the #.  
+  397The contents of the # spill out.  
+  398I can't get to that to move it. 
+  399You can't move the #. 
+  400You can't turn that on. 
+  401It is already on.  
+  402You can't turn that off.   
+  403It is already off. 
+  404The # is now on. 
+  405The # is now off.  
+  406It is now pitch black.  
+  407You must tell me how to do that to a #.   
+  408The # cannot be opened. 
+  409Opened.  
+  410Opening the # reveals:  
+  411The # cannot be closed. 
+  412It is already open.   
+  413It is already closed. 
+  414Closed.  
+  415There is a # here. 
+  416You are carrying a #. 
+  417It is in the #, which is in the room.  
+  418It is in the #, which you are carrying.   
+  419Time passes...   
+  420The # must be on the ground to be boarded.  
+  421I suppose you have a theory on boarding a #.   
+  422You are already in the #, cretin! 
+  423You are now in the #. 
+  424You aren't in that!   
+  425You realize, just in time, that disembarking here would probably   
+  425be fatal.   
+  426You are on your own feet again. 
+  427You can't go there without a vehicle.  
+  428You can't go there in a #. 
+  429I see nothing special about the #.   
+  430It is pitch dark.  You are likely to be eaten by a grue. 
+  431You are in the #.  
+  432The # has died.  
+  433The troll, disarmed, cowers in terror, pleading for his life in 
+  433the guttural tongue of the trolls.   
+  434The troll, now worried about this encounter, recovers his  
+  434bloody axe. 
+  435An unconscious troll is sprawled on the floor.  All passages out   
+  435of the room are open. 
+  436A nasty-looking troll, brandishing a bloody axe, blocks all passages 
+  436out of the room. 
+  437The troll stirs, quickly resuming a fighting stance.  
+  438The troll spits in your face, saying "Better luck next time". 
+  439The troll laughs at your puny gesture. 
+  440The troll, who is remarkably coordinated, catches the #  
+  441The troll, who is not overly proud, graciously accepts the gift 
+  442and not having the most discriminating tastes, gleefully eats it.  
+  443and being for the moment sated, throws it back.  Fortunately, the  
+  443troll has poor control, and the knife falls on the floor.  He does 
+  443not look pleased.  
+  444Sadly, a # can't be put in a #. 
+  445You can't take the #. 
+  446Aren't you forgetting something?  
+  447That would be a good trick.  
+  448The # is too big to jump over.  
+  449You should have looked before you leaped. 
+  450I'm afraid that leap was a bit much for your weak frame. 
+  451In the movies, your life would be passing in front of your eyes.   
+  452Geronimo... 
+  453I don't think that the # would agree with you. 
+  454I think you should get that first.   
+  455Thank you very much.  It really hit the spot.  
+  456How can I drink that? 
+  457I'd like to, but I can't get to that.  
+  458Thank you very much.  I was rather thirsty, probably from all 
+  458this talking. 
+  459The # catches fire.   
+  460Unfortunately, you were holding it at the time.  
+  461You don't have that.  
+  462The # catches fire and is consumed.  
+  463I don't think you can burn a #. 
+  464It doesn't seem to work.   
+  465Can you unlock a grating with a #?   
+  466Munging a # #.   
+  467Trying to kill a # #. 
+  468Trying to attack a # #. 
+  469There is nothing here to attack.  
+  470I've known strange people, but attacking a #?  
+  471with your bare hands is suicidal  
+  472with that is very self-destructive   
+  473You are in perfect health. 
+  474You have a light wound. 
+  475You have a serious wound.  
+  476You have several wounds.   
+  477You have serious wounds.   
+  478You are at death's door.   
+  479You can be killed by one more light wound.  
+  480You can be killed by a serious wound.  
+  481You can survive one serious wound.   
+  482You are strong enough to take several wounds.  
+  483You have been killed once. 
+  484You have been killed twice.  
+  485This gives you the rank of Cheater.  
+  486This gives you the rank of Wizard.   
+  487This gives you the rank of Master.   
+  488This gives you the rank of Winner.   
+  489This gives you the rank of Hacker.   
+  490This gives you the rank of Adventurer. 
+  491This gives you the rank of Junior Adventurer.  
+  492This gives you the rank of Novice Adventurer.  
+  493This gives you the rank of Amateur Adventurer. 
+  494This gives you the rank of Beginner. 
+  495Your sword is no longer glowing.  
+  496Your sword is glowing with a faint blue glow.  
+  497Your sword has begun to glow very brightly.
+  498Annoyed to be left unarmed in such an obviously dangerous  
+  498neighborhood, the thief slips off into the shadows. 
+  499The robber, somewhat surprised by this turn of events, nimbly 
+  499recovers his stilletto. 
+  500His booty remains. 
+  501As the thief dies, the power of his magic decreases, and his  
+  501treasures reappear:  A #.  
+  502  A #. 
+  503There is a suspicious-looking individual, holding a bag, leaning   
+  503against one wall.  He is armed with a vicious-looking stilletto.   
+  504There is a suspicious-looking individual lying unconscious on the  
+  504ground.  His bag and stilletto seem to have vanished. 
+  505The robber revives, briefly feigning continued unconsciousness, and  
+  505when he sees his moment, scrambles away from you.   
+  506Once you got him, what would you do with him?  
+  507You missed.  The thief makes no attempt to take the knife, although  
+  507it would be a fine addition to the collection in his bag.  He does 
+  507seem angered by your attempt.   
+  508You evidently frightened the robber, although you missed him.  He flees.  
+  509You evidently frightened the robber, although you missed him.  He flees,  
+  509but the contents of his bag fall on the floor. 
+  510Your proposed victim suddenly recovers consciousness. 
+  511The thief seems rather offended by your offer.  Do you think he's as 
+  511stupid as you are? 
+  512The thief places the # in his bag and thanks you politely. 
+  513The candles are not lit.   
+  514The flame is extinguished. 
+  515Alas, there's not much left of the candles.  Certainly not enough to 
+  515burn.  
+  516With what?  
+  517The candles are lit.  
+  518The candles are already lit. 
+  519You have to light them with something that's burning, you know. 
+  520You realize just in time that the candles are already lit. 
+  521The heat from the torch is so intense that the candles are vaporized.   
+  522Oh, no!  You walked into the slavering fangs of a lurking grue. 
+  523Oh, no!  A fearsome grue slithered into the room and devoured you. 
+  524You can't go that way.  
+  525The # is closed. 
+  526I can't reach that.   
+  527You aren't carrying that.  
+  528Dropped. 
+  529Thrown.  
+  530You watch as the balloon slowly lands. 
+  531The balloon has landed. 
+  532You have landed, but the balloon did not survive.   
+  533You watch as the balloon slowly descends. 
+  534The balloon descends. 
+  535You hear a boom and notice that the balloon is falling to the ground.   
+  536Your balloon has hit the rim of the volcano, ripping the cloth and 
+  536causing you to drop 500 feet.  Did you get your flight insurance?  
+  537You watch as the balloon slowly ascends.  
+  538The balloon ascends.  
+  539You watch as the balloon slowly floats away.  It seems to be ascending, 
+  539due to its light load.  
+  540The balloon leaves the ledge.   
+  541You watch as the balloon slowly lifts off.  
+  542The balloon slowly rises from the ground. 
+  543The cloth bag is draped over the side. 
+  544The balloon is inflated, and there is a # burning   
+  544in the receptacle. 
+  545The balloon is tied to the hook.  
+  546I'm afraid you can't control the balloon in that way. 
+  547You are tied to the ledge. 
+  548You don't really want to hold a burning #.  
+  549The receptacle is already occupied.  
+  550The # burns inside the receptacle.   
+  551The balloon inflates as it fills with hot air. 
+  552Not likely. 
+  553An interesting idea, but...  
+  554A valiant attempt. 
+  555You can't be serious. 
+  556Not a prayer. 
+  557You already have it.  
+  558Your load is too heavy.  You will have to leave something behind.  
+  559Taken. 
+  560Nice try.   
+  561I can't do that. 
+  562I can't reach inside. 
+  563How can you do that?  
+  564The # is already in the #. 
+  565It won't fit. 
+  566I can't reach the #.  
+  567The cage shakes and is hurled across the room. 
+  568"I am sorry but that action is difficult in the absense of a mouth." 
+  569"My vision is not that good without eyes."  
+  570"I am only a stupid robot and cannot perform that command."   
+  571ECHO   
+  571The acoustics of the room change subtly.  
+  572Almost as soon as the # breathes his last, a cloud of 
+  572sinister black smoke envelops him, and when the fog lifts, the  
+  572carcass has disappeared.   
+  573The # contains:  
+  574Your collection of treasures consists of: 
+  575You are carrying:  
+  576The # is carrying: 
+  577By some miracle of elven technology, you have managed to 
+  577stop the leak in the dam.  
+  578You are empty handed. 
+  579It is too dark in here to see.  
+  580#:  
+  581I couldn't find anything.
+  582I couldn't find any valuables.  
+  583Someone carrying a large bag is casually leaning against one of the  
+  583walls here.  He does not speak, but it is clear from his aspect that 
+  583the bag will be taken only over his dead body. 
+  584Your opponent, determining discretion to be the better part of  
+  584valor, decides to terminate this little contretemps.  With a rueful  
+  584nod of his head, he steps backward into the gloom and disappears.  
+  585The holder of the large bag just left, looking disgusted.  
+  585Fortunately, he took nothing.   
+  586A 'lean and hungry' gentleman just wandered through.  Finding 
+  586nothing of value, he left disgruntled. 
+  587A seedy-looking individual with a large bag just wandered through  
+  587the room.  On the way, he quietly abstracted all valuables from the  
+  587room and from your possession, mumbling something about, "Do unto  
+  587others before...". 
+  588The other occupant (he of the large bag), finding nothing of value,  
+  588left disgusted.  
+  589The other occupant just left carrying his large bag.  You may not  
+  589have noticed that he robbed you blind first.   
+  590Off in the distance you hear someone saying, "My, I wonder what this 
+  590fine # is doing here?"  
+  591You are still recovering from the last blow, so your attack is  
+  591ineffective.  
+  592Attacking a dead # is pointless.  
+  593Well, you really did it that time.  Is suicide painless? 
+  594The # slowly regains his feet.  
+  595The unconscious # cannot defend himself:  he dies.  
+  596It appears that the last blow was too much for you.  I'm afraid 
+  596that you are dead. 
+  597Saved. 
+  598I can't access the save file.   
+  599Restored.   
+  600Your save file is obsolete and cannot be restored.  
+  601I don't understand that.   
+  602You cannot talk to that!   
+  603You cannot talk through another person.   
+  604Please input the entire command again. 
+  605Fortunately, you still have a #.  
+  606You are in a room with an exit on the west side, and a staircase   
+  606leading up. 
+  607A cyclops, who looks prepared to eat horses (much less mere   
+  607adventurers), blocks the staircase.  From his state of health 
+  607and the bloodstains on the wall, you gather that he is not very 
+  607friendly, though he likes people. 
+  608The cyclops is standing in the corner, eyeing you closely.  I don't  
+  608think he likes you very much.  He looks extremely hungry, even for 
+  608a cyclops.  
+  609The cyclops, having eaten the hot peppers, appears to be gasping.  
+  609His enflamed tongue protrudes from his man-sized mouth.  
+  610The cyclops, perhaps affected by a drug in your drink, is sleeping 
+  610blissfully at the foot of the stairs.  
+  611On the north of the room is a wall which used to be solid, but which 
+  611now has a cyclops-shaped hole in it. 
+  612The bottle is closed. 
+  613The bottle is already full.  
+  614The bottle is now full of water.  
+  615The water slips through your fingers.  
+  616Too many prepositions.  
+  617Too many objects.  
+  618I can't see one here. 
+  619Which one do you mean?  
+  620I can't reach that from inside the #.  
+  621What should I do with the #? 
+  622Huh?   
+  623You must supply a direct object.  
+  624You must supply an indirect object.  
+  625Normally, I would offer to patch you up, but I'm ashamed to say my 
+  625abilities are not equal to dealing with your present condition. 
+  625Please let me express my profoundest regrets.  
+  626The thief, being temporarily incapacitated, is unable to acknowledge 
+  626your greeting with his usual graciousness.  
+  627The thief is taken aback by your unexpected generosity but accepts 
+  627the # and stops to admire its beauty.  
+  628The # is open, but I can't tell what's beyond it.   
+  629The # is empty.  
+  630I don't know how to look inside a #. 
+  631There is nothing interesting there.  
+  632I don't really see how. 
+  633The implementers are dead;  therefore, they do not respond.   
+  634You can't wind a #.   
+  635You hear in the distance the chirping of a song bird. 
+  636A metallic voice says, "Hello, Intruder!  Your unauthorized presence 
+  636in the vault area of the Bank of Zork has set off all sorts of nasty 
+  636surprises, several of which seem to have been fatal.  This message 
+  636brought to you by the Frobozz Magic Alarm Company." 
+  637An epicene Gnome of Zurich, wearing a three-piece suit and carrying a   
+  637safety deposit box, materializes in the room.  "You seem to have   
+  637forgotten to deposit your valuables," he says, tapping the lid of the   
+  637box impatiently.  "We don't usually allow customers to use the boxes 
+  637here, but we can make this ONE exception, I suppose..."  He looks  
+  637askance at you over his wire-rimmed bifocals.  
+  638The gnome looks impatient:  "I may have another customer waiting;  
+  638you'll just have to fend for yourself, I'm afraid."  He disappears,  
+  638leaving you alone in the bare room.  
+  639Talk about eating rich foods!   
+  640Nothing like having money to burn!   
+  641"I wouldn't put THAT in a safety deposit box," remarks the gnome with   
+  641disdain, tossing it over his shoulder, where it disappears with an 
+  641understated "pop". 
+  642The gnome carefully places the # in the   
+  642deposit box.  "Let me show you the way out," he says, making it clear   
+  642that he will be pleased to see the last of you.  Then, you are momentarily
+  642disoriented, and when you recover, you are back at the Bank Entrance.   
+  643The gnome says, "Well, I never!" and disappears with a snap of his 
+  643fingers, leaving you alone.  
+  644The gnome appears increasingly impatient. 
+  645There is an unpleasant grinding noise from inside the canary. 
+  646The canary chirps blithely, if somewhat tinnily, for a short time. 
+  647The canary chirps, slightly off key, an aria from a forgotten opera. 
+  647From out of the greenery flies a lovely song bird.  It perches on a  
+  647limb just over your head and opens its beak to sing.  As it does so, 
+  647a beautiful brass bauble drops from its mouth, bounces off the top 
+  647of your head, and lands glimmering in the grass.  As the canary winds   
+  647down, the song bird flies away. 
+  648The cliff is too steep for climbing. 
+  649The egg is already open.   
+  650There is no obvious way to open the egg.  
+  651I doubt you could do that without damaging it. 
+  652The egg is now open, but the clumsiness of your attempt has   
+  652seriously diminished its esthetic appeal. 
+  653The concept of using a # is certainly original.  
+  654Not to say that using a # isn't original either...  
+  655Your rather indelicate handling of the egg has caused it some damage. 
+  655The egg is now open.  
+  656Climbing the walls is of no avail.   
+  657Bizarre! 
+  658The egg falls to the ground and is seriously damaged. 
+  659The # falls to the ground. 
+  660You are about ten feet above the ground nestled among some large   
+  660branches.  The nearest branch above you is beyond your reach. 
+  661On the ground below you can see:  
+  662I can't see any wall here. 
+  663That cannot be turned.  
+  664You would be lost without me.   
+  665You don't have the #. 
+  666The song bird is not here, but it is probably nearby. 
+  667I can't see any song bird here. 
+  668You feel somewhat disoriented as you pass through...  
+  669You hit your head against the # as you attempt this feat.  
+  670You can't go more than part way through the curtain.  
+  671That would involve quite a contortion! 
+  672You are in it, turkey!  
+  673As you try, your hand seems to go through it.  
+  674The # goes through it.  
+  675The # passes through the wall and vanishes. 
+  676The curtain dims slightly as the # passes through.  
+  677I can't do that with everything at once.  
+  678There is a wall there.  
+  679There is no way up.   
+  680There is no way down. 
+  681You are in part of the long hallway.  The east and west walls are  
+  681dressed stone.  In the center of the hall is a shallow stone channel.   
+  681In the center of the room the channel widens into a large hole around   
+  681which is engraved a compass rose. 
+  682Somewhat to the south, identical stone statues face each other from  
+  682pedestals on opposite sides of the corridor.  The statues represent  
+  682Guardians of Zork, a military order of ancient lineage.  They are  
+  682portrayed as heavily armored warriors standing at ease, hands clasped   
+  682around formidable bludgeons. 
+  683Somewhat to the north, identical stone statues face each other from  
+  683pedestals on opposite sides of the corridor.  The statues represent  
+  683Guardians of Zork, a military order of ancient lineage.  They are  
+  683portrayed as heavily armored warriors standing at ease, hands clasped   
+  683around formidable bludgeons. 
+  684A passage enters from the south.  
+  685The Guardians awake and, in perfect unison, destroy you with  
+  685their stone bludgeons.  Satisfied, they resume their posts.   
+  686To the north and south are large hallways.  
+  687To the north is a large hallway.  
+  688You are inside a rectangular box of wood whose structure is rather 
+  688complicated.  Four sides and the roof are filled in, and the floor 
+  688is open. 
+  688   As you face the side opposite the entrance, two short sides of  
+  688carved and polished wood are to your left and right.  The left panel 
+  688is mahogany, the right pine.  The wall you face is red on its left 
+  688half and black on its right.  On the entrance side, the wall is white   
+  688opposite the red part of the wall it faces, and yellow opposite the  
+  688black section.  The painted walls are at least twice the length of 
+  688the unpainted ones.  The ceiling is painted blue.   
+  688   In the floor is a stone channel about six inches wide and a foot  
+  688deep.  The channel is oriented in a north-south direction.  In the 
+  688exact center of the room the channel widens into a circular   
+  688depression perhaps two feet wide.  Incised in the stone around this  
+  688area is a compass rose. 
+  688   Running from one short wall to the other at about waist height  
+  688is a wooden bar, carefully carved and drilled.  This bar is pierced  
+  688in two places.  The first hole is in the center of the bar (and thus 
+  688in the center of the room).  The second is at the left end of the room  
+  688(as you face opposite the entrance).  Through each hole runs a wooden   
+  688pole.  
+  688   The pole at the left end of the bar is short, extending about a 
+  689foot above the bar, and ends in a hand grip.  The pole is resting on 
+  689the stone floor. 
+  690foot above the bar, and ends in a hand grip.  The pole has been 
+  690dropped into a hole carved in the stone floor. 
+  691foot above the bar, and ends in a hand grip.  The pole has been lifted  
+  691out of a hole carved in the stone floor.  There is evidently enough  
+  691friction to keep the pole from dropping back down.  
+  692foot above the bar, and ends in a hand grip.  The pole has been 
+  692dropped into the stone channel incised in the floor.  
+  693foot above the bar, and ends in a hand grip.  The pole is positioned 
+  693above the stone channel in the floor.  
+  694   The long pole at the center of the bar extends from the ceiling 
+  694through the bar to the circular area in the stone channel.  The 
+  694bottom end of this pole has a T-bar a bit less than two feet long  
+  694attached to it.  On the T-bar is carved an arrow.  The arrow and   
+  694T-bar are pointing #. 
+  695north  
+  696northeast   
+  697east   
+  698southeast   
+  699south  
+  700southwest   
+  701west   
+  702northwest   
+  703You are in a small room, with narrow passages exiting to the north 
+  703and south.  A narrow red beam of light crosses the room at the north 
+  703end, inches above the floor. 
+  704You are in a small room, with narrow passages exiting to the north 
+  704and south.  A narrow red beam of light crosses the room at the north 
+  704end, inches above the floor.  The beam is stopped halfway across the 
+  704room by a # lying on the floor. 
+  705Though large and esthetically pleasing, the crypt is empty;  the   
+  705sarcophagi, bodies, and rich treasures to be expected in a tomb of 
+  705this magnificence are missing.  Inscribed on the wall is the motto of   
+  705the implementers, "Feel Free".  There is a door leading out of the 
+  705crypt to the south.  The door is #.  
+  706You are in an east-west corridor which turns north at its eastern  
+  706and western ends.  The walls of the corridor are marble.  An  
+  706additional passage leads south at the center of the corridor. 
+  707In the center of the north wall of the passage is a bronze door 
+  707which is #. 
+  708You are in a narrow north-south corridor.  At the south end is a door   
+  708and at the north end is an east-west corridor.  The door is #.  
+  709You are in a north-south hallway which ends in a large wooden door.  
+  710The wooden door has a barred panel in it at about head height.  The  
+  710panel is #, and the door is #.  
+  711You are in a large east-west corridor which opens out to a northern  
+  711parapet at its center.  You can see flames and smoke as you peer   
+  711towards the parapet.  The corridor turns south at its east and west  
+  711ends, and due south is a massive wooden door.  In the door is a small   
+  711window barred with iron.  The door is #.  
+  712You are standing behind a stone retaining wall which rims a large  
+  712parapet overlooking a fiery pit.  It is difficult to see through the 
+  712smoke and flame which fills the pit, but it seems to be more or less 
+  712bottomless.  It also extends upwards out of sight.  The pit itself 
+  712is of roughly dressed stone and is circular in shape.  It is about 
+  712two hundred feet in diameter.  The flames generate considerable heat,   
+  712so it is rather uncomfortable standing here.   
+  712   There is an object here which looks like a sundial.  On it are  
+  712an indicator arrow and (in the center) a large button.  On the face  
+  712of the dial are numbers "one" through "eight".  The indicator points 
+  712to the number "#". 
+  713one 
+  714two 
+  715three  
+  716four   
+  717five   
+  718six 
+  719seven  
+  720eight  
+  721You are in a featureless prison cell.  You can see only the flames 
+  721and smoke from the pit out of the small window in the closed door  
+  721in front of you. 
+  722You are in a featureless prison cell.  You can see the east-west   
+  722corridor outside the open wooden door in front of you.   
+  723Behind you is a bronze door which seems to be #. 
+  724You are in a featureless prison cell.  Its wooden door is securely 
+  724fastened, and you can see only the flames and smoke of the pit out 
+  724its small window.  
+  725You are in a featureless prison cell.  Its wooden door is securely 
+  725fastened, and you can see only the flames and smoke of the pit out 
+  725its small window.  On the other side of the cell is a bronze door  
+  725which seems to be #.  
+  726   As you gleefully examine your new-found riches, the dungeon  
+  726master himself materializes beside you and says, "Now that you have  
+  726solved all the mysteries of the dungeon, it is time for you to assume   
+  726your rightfully-earned place in the scheme of things.  Long have I 
+  726waited for one capable of releasing me from my burden!"  He taps you 
+  726lightly on the head with his staff and mumbles a few well-chosen spells.  
+  726You feel yourself changing, growing older and more stooped.  For a 
+  726moment there are two identical mages staring at each other among the 
+  726treasures, then you watch as your counterpart dissolves into a mist  
+  726and disappears, a sardonic grin on his face.   
+  727Suddenly, as you wait in the dark, you begin to feel somewhat 
+  727disoriented.  The feeling passes, but something seems different.   
+  727As you regain your composure, the cloaked figure appears before you  
+  727and says, "You are now ready to face the ultimate challenge of  
+  727Zork.  Should you wish to do this somewhat more quickly in the  
+  727future, you will be given a magic phrase which will at any time 
+  727transport you by magic to this point.  To select the phrase, say   
+  727   INCANT, <word>  
+  727and you will be told your own magic phrase to use by saying   
+  727   INCANT, <phrase>  
+  727Good luck, and choose wisely!"  
+  728The button pops back to its original position. 
+  729The mirror quietly swings shut. 
+  730The pine wall closes quietly.   
+  731The structure shakes slightly but doesn't move.  
+  732The short pole prevents the structure from rotating.  
+  733The movement of the structure alerts the Guardians. 
+  734The arrow on the compass rose now indicates #. 
+  735The structure rocks back and forth slightly but doesn't move. 
+  736The pine wall swings open. 
+  737The pine door opens into the field of view of the Guardians.  
+  738The structure has reached the end of the stone channel and won't   
+  738budge. 
+  739The structure slides # and stops over another compass rose.   
+  740The structure wobbles # and stops over another compass rose.  
+  741The structure wobbles as it moves, alerting the Guardians. 
+  742The Guardian notices a wooden structure creeping by, and his  
+  742suspicions are aroused. 
+  743Suddenly, the Guardians realize that someone is trying to sneak by 
+  743them in the structure.  They awake and, in perfect unison, hammer  
+  743the box and its contents (including you) to a pulp.  Satisfied, they 
+  743resume their posts.   
+  744A Guardian notices the open side of the structure, and his suspicions   
+  744are aroused.  
+  745Attacking the Guardians is about as futile as attacking a stone wall.   
+  745Unfortunately for you, your futile blow attracts their attention, and   
+  745they manage to dispatch you effortlessly. 
+  746The statues are impassive. 
+  747The dungeon master is taken momentarily by surprise.  He dodges your 
+  747blow and then, with a disappointed expression on his face, he raises 
+  747his staff and traces a complicated pattern in the air.  As it 
+  747completes you crumble into dust.  
+  748"I'm willing to accompany you, but not to ride in your pocket!" 
+  749The pole is now slightly above the floor. 
+  750The pole cannot be raised further.   
+  751The pole cannot be lowered further.  
+  752The pole is lowered into the channel.  
+  753The pole is lowered into the stone hole.  
+  754The pole is already resting on the floor. 
+  755The pole now rests on the stone floor. 
+  756The button becomes depressed.   
+  757The button pops back out.  
+  758The button is already depressed.  
+  759No doubt you have a bottle of moonbeams as well. 
+  760The beam is now interrupted by a # lying on the floor.   
+  761You can't break the beam with a #.   
+  762The # already breaks the beam.  
+  763I see no bronze door here. 
+  764The bronze door opens.  
+  765The bronze door closes. 
+  766On the other size of the door is a narrow passage which opens out  
+  766into a larger area.   
+  767The door won't budge. 
+  768The knock reverberates along the hall.  For a time it seems there  
+  768will be no answer.  Then you hear someone unlatching the small wooden   
+  768panel.  Through the bars of the great door, the wrinkled face of an  
+  768old man appears.  He gazes down at you and intones as follows:  
+  768   "I am the master of the dungeon, whose task it is to insure  
+  768that none but the most scholarly and masterful adventurers are  
+  768admitted into the secret realms of the dungeon.  To ascertain whether   
+  768you meet the stringent requirements laid down by the Great 
+  768Implementers, I will ask three questions which should be easy for  
+  768one of your reputed excellence to answer.  You have undoubtedly 
+  768discovered the answers during your travels through the dungeon. 
+  768Should you answer each of these questions correctly within five 
+  768attempts, then I am obliged to acknowledge your skill and daring and 
+  768admit you to these regions.  
+  768   "All answers should be in the form 'ANSWER, <answer>'." 
+  769The booming voice asks: 
+  770"From which room can one enter the robber's hideaway without passing 
+  770through the cyclops room?" 
+  771"Beside the Temple, to which room is it possible to go from the Altar?" 
+  772"What is the absolute minimum specified value of the Zorkmid  
+  772treasures, in Zorkmids?"   
+  773"What object is of use in determining the function of the iced cakes?"  
+  774"What can be done to the mirror that is useful?" 
+  775"The taking of which object offends the ghosts?" 
+  776"What object in the dungeon is haunted?"  
+  777"In which room is the phrase 'Hello sailor' useful?"  
+  778The door is securely fastened.  
+  779The wooden door opens.  
+  780The wooden door closes. 
+  781The dungeon master says, "I will stay."   
+  782The dungeon master says, "I will follow." 
+  783There is no reply. 
+  784"I prefer to stay where I am, thank you." 
+  785"I am not permitted to enter the prison cell." 
+  786"I cannot perform that action for you."   
+  787This gives you the rank of Dungeon Master.  
+  788This gives you the rank of Super Cheater. 
+  789This gives you the rank of Master Cheater.  
+  790This gives you the rank of Advanced Cheater.   
+  791This gives you the rank of Cheater.  
+  792You are in the Tomb of the Unknown Implementer.  A hollow voice 
+  792says, "That's not a bug, it's a feature!" 
+  792In the north wall of the room is the Crypt of the Implementers.  It  
+  792is made of the finest marble and is apparently large enough for four 
+  792headless corpses.  The crypt is #.  Above the entrance is the 
+  792cryptic inscription:  
+  792  
+  792         "Feel Free".   
+  793The door of the crypt is extremely heavy, but it opens easily.  
+  794The crypt is already open. 
+  795The crypt is already closed. 
+  796The crypt is closed.  
+  797The dial spins and comes to a stop pointing at "#". 
+  798There is no answer.   
+  799No one seems to be listening.   
+  800The dungeon master says, "Excellent."  
+  801The dungeon master says, "You are wrong.  You have four more chances."  
+  802The dungeon master says, "You are wrong.  You have three more chances." 
+  803The dungeon master says, "You are wrong.  You have two more chances."   
+  804The dungeon master says, "You are wrong.  You have one more chance." 
+  805The mirror is closed. 
+  806You must specify what to set the dial to. 
+  807The dial face contains only numbers. 
+  808The dial now points to "#".  
+  809The button depresses with a slight click and pops back.  
+  810The cell door is now closed. 
+  811You notice that the dungeon master does not follow. 
+  812The dungeon master catches up with you.   
+  813The dungeon master follows you. 
+  814There is a wooden wall blocking your way. 
+  815There is a large mirror blocking your way.  
+  816There is a large broken mirror blocking your way.   
+  817The structure blocks your way.  
+  818As you leave, the door swings shut.  
+  819You are in a narrow room whose west wall is a large mirror.   
+  820You are in a narrow room whose east wall is a large mirror.   
+  821You are in a narrow room whose west wall is a large wooden panel   
+  821which once contained a mirror.  
+  822You are in a narrow room whose east wall is a large wooden panel   
+  822which once contained a mirror.  
+  823The mirror is mounted on a panel which has been opened outward. 
+  824The panel has been opened outward.   
+  825The opposite wall is solid rock.  
+  826The dungeon master says, "You are wrong."  The dungeon master,  
+  826obviously disappointed in your lack of knowledge, shakes his head  
+  826and mumbles, "I guess they'll let anyone in the dungeon these days." 
+  826With that, he departs.  
+  827The dungeon master, obviously pleased, says, "You are indeed a  
+  827master of lore.  I am proud to be at your service."  The massive   
+  827wooden door swings open, and the master motions for you to enter.  
+  828Saves are not permitted during the endgame. 
+  829Restores are not permitted during the endgame. 
+  830The structure rotates clockwise.  
+  831The structure rotates counterclockwise.   
+  832I can't see a mirror here. 
+  833I don't see any way to open the mirror here.   
+  834The mirror breaks, revealing a panel behind it.  
+  835The mirror has already been broken.  
+  836The mirror is mounted on a wooden panel which moves slightly inward  
+  836as you push and back out as you let go.  The mirror feels rather   
+  836fragile. 
+  837The mirror is unyielding but seems rather fragile.  
+  838I can't see a panel here.  
+  839I don't see any way to open the panel here. 
+  840To break the panel you would have to break the mirror first.  
+  841The panel is not that easily destroyed.   
+  842The wooden panel moves slightly inward as you push and back out 
+  842when you let go. 
+  843The panel is unyielding.   
+  844A disheveled adventurer stares back at you. 
+  845The mirror is broken into little pieces.  
+  846Shards of a broken mirror are dangerous to play with. 
+  847The # side of the room is divided by a wooden wall into small 
+  848hallways to the #east and #west.  
+  849A large mirror fills the # side of the hallway.  
+  850A large panel fills the # side of the hallway. 
+  851The shattered pieces of a mirror cover the floor.   
+  852The corridor continues north.   
+  853The corridor continues south.   
+  854The corridor continues north and south.   
+  855Incantations are useless once you have gotten this far.  
+  856That incantation seems to have been a failure. 
+  857Sorry, only one incantation to a customer.  
+  858That spell has no obvious effect. 
+  859As the last syllable of your spell fades into silence, darkness 
+  859envelops you, and the earth shakes.  Then all is quiet.  
+  860The structure won't budge. 
+  861You are in a room with an exit to the north and a steel door to the east. 
+  862You are in a room with an exit to the north and a passage to the east.  
+  863The card slides easily into the slot and vanishes, and the steel   
+  863door slides open, revealing a passageway to the west.  A moment 
+  863later, a previously unseen sign flashes:  
+  863   "Unauthorized/Illegal Use of Pass Card -- Card Confiscated"  
+  864The item vanishes into the slot.  A moment later, a previously  
+  864unseen sign flashes "Garbage In, Garbage Out".  The #,   
+  864now atomized, spews through the slot.  
+  865I can't see any ladder here. 
+  866Come, come! 
+  867You hit your head on the ceiling and fall off the ladder.  
+  868You are in a small square room bounded to the north and west with  
+  868marble walls and to the east and south with sandstone walls.  
+  869It appears the thief was correct. 
+  870In the ceiling above you is a large circular opening. 
+  871The center of the floor is noticeably depressed here. 
+  872The west wall here has a large steel door at its center.  On one side   
+  872of the door is a small slit. 
+  873The west wall here has a large opening at its center.  On one side 
+  873of the opening in a small slit. 
+  874There is a ladder here, firmly attached to the east wall.  
+  875There is a ladder here, firmly attached to the west wall.  
+  876There is only a passage in that direction.  
+  877The wall does not budge.   
+  878The wall slides forward and you follow it...   
+  878The architecture of this region is getting complex, so that further  
+  878descriptions will be diagrams of the immediate vicinity in a 3x3   
+  878grid.  The walls here are rock, but of two different types - sandstone  
+  878and marble.  The following notations will be used:  
+  878                   ..  = current position (middle of grid)  
+  878                   MM  = marble wall  
+  878                   SS  = sandstone wall 
+  878                   ??  = unknown (blocked by walls). 
+  879The wall slides forward and you follow it to the following position: 
+  880Your position is as follows: 
+  881The exit is too far above your head. 
+  882With the help of the ladder, you exit the puzzle.   
+  883Don't be lazy, type the command yourself. 
+  884In the MDL sources, NOOBJ is described as a "hack".  As we are  
+  884above such practices, NOOBJ is not implemented.  
+  885The grating closes.   
+    1Your swing misses the # by an inch.  
+    2A mightly blow, but it misses the # by a mile. 
+    3You charge, but the # jumps nimbly aside. 
+    4Clang!  Crash!  The # parries.  
+    5A good stroke, but it's too slow, the # dodges.  
+    6Your sword crashes down, knocking the # into dreamland.  
+    7The # is battered into unconsciousness.   
+    8A furious exchange, and the # is knocked out.  
+    9It's curtains for the # as your sword removes his head.  
+   10The fatal blow strikes the # square in the heart:  he dies.   
+   11The # takes a final blow and slumps to the floor dead.   
+   12The # is struck on the arm, blood begins to trickle down.  
+   13Your sword pinks the # on the wrist, but it's not serious. 
+   14Your stroke lands, but it was only the flat of the blade.  
+   15The blow lands, making a shallow gash in the #'s arm. 
+   16The # receives a deep gash in his side.   
+   17A savage blow on the thigh!  The # is stunned but can still fight. 
+   18Slash!  Your blow lands!  That one hit an artery, it could be serious!  
+   19The # is staggered and drops to his knees.  
+   20The # is momentarily disoriented and can't fight back.   
+   21The force of your blow knocks the # back, stunned.  
+   22The #'s weapon is knocked to the floor, leaving him unarmed.  
+   23Your stab misses the # by an inch.   
+   24A good slash, but it misses the # by a mile.   
+   25You charge, but the # jumps nimbly aside. 
+   26A quick stroke, but the # is on guard. 
+   27A good stroke, but it's too slow, the # dodges.  
+   28The haft of your blade knocks out the #.  
+   29The # drops to his knees, unconscious. 
+   30The # is knocked out! 
+   31It's the end for the # as your knife severs his jugular. 
+   32The fatal thrust strikes the # square in the heart. 
+   33The # takes a final blow and slumps to the floor dead.   
+   34The # is slashed on the arm, blood begins to trickle down. 
+   35Your knife point pinks the # on the wrist, but it's not serious.   
+   36Your stroke lands, but it was only the flat of the blade.  
+   37The blow lands, making a shallow gash in the #'s arm. 
+   38The # receives a deep gash in his side.   
+   39A savage cut on the leg stuns the #, but he can still fight.  
+   40Slash!  Your stroke connects!  The # could be in serious trouble!  
+   41The # drops to his knees, staggered. 
+   42The # is confused and can't fight back.   
+   43The quickness of your thrust knocks the # back, staggered. 
+   44The # is disarmed by a subtle feint past his guard. 
+   45The cyclops misses, but the backwash almost knocks you over.  
+   46The cyclops rushes you but runs into the wall. 
+   47The cyclops trips over his feet trying to get at you. 
+   48The cyclops unleashes a roundhouse punch, but you have time to dodge.   
+   49The cyclops knocks you unconscious.  
+   50The cyclops sends you crashing to the floor, unconscious.  
+   51The cyclops raises his arms and crushes your skull. 
+   52The cyclops has just essentially ripped you to shreds.   
+   53The cyclops decks you.  In fact, you are dead. 
+   54The cyclops breaks your neck with a massive smash.  
+   55A quick punch, but it was only a glancing blow.  
+   56The cyclops grabs but you twist free, leaving part of your cloak.  
+   57A glancing blow from the cyclops' fist.   
+   58The cyclops chops at you with the side of his hand and connects, but 
+   58not solidly.  
+   59The cyclops gets a good grip and breaks your arm.   
+   60The cyclops knocks the wind out of you with a quick punch. 
+   61The cyclops smashes his huge fist into your chest, breaking several ribs. 
+   62A flying drop kick breaks your jaw.  
+   63The cyclops breaks your leg with a staggering blow. 
+   64The cyclops knocks you silly, and you reel back. 
+   65The cyclops grabs you and almost strangles you before you wiggle free,  
+   65breathless. 
+   66Heedless of your weapons, the cyclops tosses you against the rock  
+   66wall of the room.  
+   67The cyclops lands a punch that knocks the wind out of you. 
+   68The cyclops grabs you by the arm, and you drop your #.   
+   69The cyclops kicks your # out of your hand.  
+   70The monster grabs you on the wrist, squeezes, and you drop 
+   70your # in pain.  
+   71The cyclops grabs your #, tastes it, and throws it to the  
+   71ground in disgust. 
+   72The cyclops is so excited by his success that he neglects to kill you.  
+   73The cyclops, momentarily overcome by remorse, holds back.  
+   74The cyclops seems unable to decide whether to broil or stew his dinner. 
+   75The cyclops, no sportsman, dispatches his unconscious victim. 
+   76The troll swings his axe, but it misses.  
+   77The troll's axe barely misses your ear.   
+   78The axe sweeps past you as you jump aside.  
+   79The axe crashes against the rock, throwing sparks.  
+   80The flat of the troll's axe hits you delicately on the head, knocking   
+   80you out. 
+   81The troll lands a killing blow.  You are dead. 
+   82The troll neatly removes your head.  
+   83The troll's axe cleaves you from the nave to the chops.  
+   84The troll's axe bashes in your skull.  
+   85The axe gets you right in the side.  Ouch!  
+   86The flat of the troll's axe skins across your forearm.   
+   87The troll's swing almost knocks you over as you barely parry in time.   
+   88The troll swings his axe, and it nicks your arm as you dodge. 
+   89The troll charges, and his axe slashes you on your # arm.  
+   90The troll's axe swings down, gashing your shoulder. 
+   91An axe stroke makes a deep wound in your leg.  
+   92The troll sees a hole in your defense, and a lightning stroke opens a   
+   92deep wound in your left side.   
+   93The troll hits you with a glancing blow, and you are momentarily stunned. 
+   94The troll swings.  The blade turns on your armor but crashes broadside  
+   94into your head.  
+   95You stagger back under a hail of strokes. 
+   96The troll's mighty blow drops you to your knees. 
+   97The axe hits your # and sends it spinning.  
+   98The troll swings.  You parry, but the force of his blow disarms you. 
+   99The axe knocks your # out of your hand.  It falls to the floor. 
+  100You parry the blow, but your # is knocked from your hand.  
+  101The troll strikes at your unconscious form but misses in his rage. 
+  102The troll hesitates, fingering his axe.   
+  103The troll scratches his head ruminatively.  Might you be magically 
+  103protected, he wonders?  
+  104The troll seems afraid to approach your crumpled form.   
+  105Conquering his fears, the troll puts you to death.  
+  106The thief stabs nonchalantly with his stilletto and misses.   
+  107You dodge as the thief comes in low. 
+  108You parry a lightning thrust, and the thief salutes you with a  
+  108grim nod.   
+  109The thief tries to sneak past your guard, but you twist away. 
+  110Shifting in the midst of a thrust, the thief knocks you unconscious  
+  110with the haft of his stilletto. 
+  111The thief knocks you out.  
+  112Finishing you off, a lightning throw right to the heart. 
+  113The stilletto severs your jugular.  It looks like the end. 
+  114The thief comes in from the side, feints, and slips the blade 
+  114between your ribs. 
+  115The thief bows formally, raises his stilletto, and with a wry grin 
+  115ends the battle and your life.  
+  116A quick thrust pinks your left arm, and blood starts to trickle 
+  116down.  
+  117Raking his stilletto across your arm, the thief draws blood.  
+  118The stilletto flashes faster than you can follow, and blood   
+  118wells from your leg.  
+  119The thief slowly approaches, strikes like a snake, and leaves you  
+  119wounded. 
+  120The thief strikes like a snake!  The resulting wound is serious.   
+  121The thief stabs a deep cut in your upper arm.  
+  122The stilletto touches your forehead, and the welling blood obscures  
+  122your vision.  
+  123The thief strikes at your wrist, and suddenly your grip is slippery  
+  123with blood. 
+  124The butt of his stilletto cracks you on the skull, and you stagger back.  
+  125You are forced back and trip over your own feet, falling heavily to  
+  125the floor.  
+  126The thief rams the haft of his blade into your stomach, leaving you  
+  126out of breath.   
+  127The thief attacks, and you fall back desperately.   
+  128A long theatrical slash.  You parry it desperately, but the thief  
+  128twists his knife, and your # goes flying. 
+  129The thief neatly flips your # out of your hands, and it drops to the 
+  129floor. 
+  130You parry a low thrust, and your # slips out of your hand. 
+  131Avoiding the thief's stilletto, you stumble to the floor, dropping 
+  131your #.  
+  132The thief, a man of good breeding, refrains from attacking a helpless   
+  132opponent.   
+  133The thief amuses himself by searching your pockets. 
+  134The thief entertains himself by rifling your pack.  
+  135The thief, noticing you beginning to stir, reluctantly finishes you off.  
+  136The thief, forgetting his essentially genteel upbringing, cuts your  
+  136throat.  
+  137The thief, who is essentially a pragmatist, dispatches you as a threat  
+  137to his livelihood. 
+    1You are in a narrow east-west passageway.  There is a narrow staircase  
+    1leading down at the north end of the room.  
+    2You are in an open field west of a big white house with a boarded  
+    2front door. 
+    3You are facing the north side of a white house.  There is no door here, 
+    3and all the windows are barred. 
+    4You are facing the south side of a white house.  There is no door here, 
+    4and all the windows are barred. 
+    7You are in the attic.  The only exit is stairs that lead down.  
+   10You are in a small room with passages off in all directions.  
+   10Bloodstains and deep scratches (perhaps made by an axe) mar the walls.  
+   11You are in a maze of twisty little passages, all alike.  
+   12You are in a maze of twisty little passages, all alike.  
+   13You are in a maze of twisty little passages, all alike.  
+   14You are in a maze of twisty little passages, all alike.  
+   15Dead end.   
+   16You are in a maze of twisty little passages, all alike.  
+   17Dead end.   
+   18You are in a maze of twisty little passages, all alike.  
+   19You are in a maze of twisty little passages, all alike.  
+   20You are in a maze of twisty little passages, all alike.  
+   21Dead end.   
+   22You are in a maze of twisty little passages, all alike.  
+   23You are in a maze of twisty little passages, all alike.  
+   24You are in a maze of twisty little passages, all alike.  
+   26You are in a maze of twisty little passages, all alike.  
+   27Dead end.   
+   28You are in a maze of twisty little passages, all alike.  
+   29You are in a maze of twisty little passages, all alike.  
+   30You are in a maze of twisty little passages, all alike.  
+   31You are in a forest, with trees in all directions around you. 
+   32You are in a dimly lit forest, with large trees all around.  To the  
+   32east, there appears to be sunlight.  
+   33You are in a dimly lit forest, with large trees all around.  One   
+   33particularly large tree with some low branches stands here.   
+   34You are in a large forest, with trees obstructing all views except 
+   34to the east, where a small clearing may be seen. 
+   35You are in a forest, with trees in all directions around you. 
+   37You are in a deep ravine at a crossing with an east-west crawlway. 
+   37Some stone steps are at the south of the ravine and a steep staircase   
+   37descends.   
+   38You are in a crawlway with a three foot high ceiling.  Your footing  
+   38is very unsure here due to the assortment of rocks undefoot.  Passages  
+   38can be seen in the east, west, and northwest corners of the crawlway.   
+   42You are standing on a path beside a gently flowing stream.  The path 
+   42travels to the north and the east.   
+   43You are on the gently flowing stream.  The upstream route is too narrow 
+   43to navigate, and the downstream route is invisible due to twisting 
+   43walls.  There is a narrow beach to land on. 
+   44You are in a room which looks like an Egyptian tomb.  There is an  
+   44ascending staircase in the room as well as doors east and south.   
+   46You are in a small chamber behind the remains of the great glacier.  
+   46To the south and west are small passageways.   
+   47You are in an ancient room, long buried by the reservoir.  There are 
+   47exits to the southeast and upward.   
+   48You are on the south edge of a deep canyon.  Passages lead off  
+   48to the east, south, and northwest.  You can hear the sound of 
+   48flowing water below.  
+   49You are in a large room with a ceiling which cannot be detected from 
+   49the ground.  There is a narrow passage from east to west and a stone 
+   49stairway leading upward.  The room is extremely noisy.  In fact, it  
+   49is difficult to hear yourself think. 
+   52You are in a small cave with an entrance to the north and a stairway 
+   52leading down. 
+   53You are in a tiny cave with entrances west and north, and a dark,  
+   53forbidding staircase leading down.   
+   54You are in a steep and narrow crawlway.  There are two exits nearby to  
+   54the south and southwest.   
+   55You are in a narrow crawlway.  The crawlway leads from north to south,  
+   55However, the south passage divides to the south and southwest.  
+   56You are in a cold and damp corridor where a long east-west passageway   
+   56intersects with a northward path. 
+   57You are in a winding passage.  It seems that there is only an exit 
+   57on the east end, although the whirring from the round room can be  
+   57heard faintly to the north.  
+   58You are in a small chamber, which appears to have been part of a   
+   58coal mine.  On the south wall of the chamber the letters "GRANITE  
+   58WALL" are etched in the rock.  To the east is a long passage, and  
+   58there is a steep metal slide twisting downward.  From the appearance 
+   58of the slide, an attempt to climb up it would be impossible.  To the 
+   58north is a small opening.  
+   59You are standing at the entrance of what might have been a coal 
+   59mine.  To the northeast and the northwest are entrances to the mine, 
+   59and there is another exit on the south end of the room.  
+   60You are in a small room.  Strange squeaky sounds may be hear coming  
+   60from the passage at the west end.  You may also escape to the south. 
+   61You are in a large room, in the middle of which is a small shaft   
+   61descending through the floor into darkness below.  To the west and 
+   61the north are exits from this room.  Constructed over the top of the
+   61shaft is a metal framework to which a heavy iron chain is attached.  
+   62You are in a narrow tunnel with large wooden beams running across  
+   62the ceiling and around the walls.  A path from the south splits into 
+   62paths running west and northeast. 
+   63You are in a small non-descript room.  However, from the direction 
+   63of a small descending staircase a foul odor can be detected.  To the 
+   63east is a narrow path.  
+   64You are in a small room which smells strongly of coal gas. 
+   65You are in a very small room.  In the corner is a rickety wooden   
+   65ladder, leading downward.  It might be safe to descend.  There is  
+   65also a staircase leading upward.  
+   66You are in a non-descript part of a coal mine. 
+   67You are in a non-descript part of a coal mine. 
+   68You are in a non-descript part of a coal mine. 
+   69You are in a non-descript part of a coal mine. 
+   70You are in a non-descript part of a coal mine. 
+   71You are in a non-descript part of a coal mine. 
+   72You are in a non-descript part of a coal mine. 
+   73You are in a rather wide room.  On one side is the bottom of a  
+   73narrow wooden ladder.  To the northeast and the south are passages 
+   73leaving the room.  
+   74Dead end.   
+   75You are in a long and narrow passage, which is cluttered with broken 
+   75timbers.  A wide passage comes from the north and turns at the  
+   75southwest corner of the room into a very narrow passageway.   
+   76You are in a small square room which is at the bottom of a long 
+   76shaft.  To the east is a passageway and to the northeast a very narrow  
+   76passage.  In the shaft can be seen a heavy iron chain.   
+   81You are in a north-south crawlway;  a passage also goes to the east. 
+   81There is a hole above, but it provides no opportunities for climbing.   
+   82You are on the west edge of a chasm, the bottom of which cannot be 
+   82seen.  The east side is sheer rock, providing no exits.  A narrow  
+   82passage goes west.  The path you are on continues to the north and south. 
+   84You are in a high north-south passage, which forks to the northeast. 
+   85A chasm runs southwest to northeast.  You are on the south edge.  The   
+   85path exits to the south and to the east.  
+   86You are in a cave.  Passages exit to the south and to the east, but  
+   86the cave narrows to a crack to the west.  The earth is particularly  
+   86damp here.  
+   87A chasm, evidently produced by an ancient river, runs through the  
+   87cave here.  Passages lead off in all directions. 
+   88Dead end.   
+   89Dead end.   
+   90You have entered a cave with passages leading north and southeast. 
+   91This is a room which is bare on all sides.  There is an exit down. 
+   91To the east is a great door made of stone.  Above the door, the 
+   91following words are written:  "No man shall enter this room without  
+   91solving this riddle-- 
+   91   What is tall as a house,  
+   91   Round as a cup, 
+   91   And all the king's horses can't draw it up?". 
+   92This is a former broom closet.  The exits are to the east and west.  
+   95You are standing in a small circular room with a pedestal.  A set of 
+   95stairs leads up, and passages leave the the east and west. 
+   96You are in the west end of a large temple.  On the south wall is an  
+   96ancient inscription, probably a prayer in a long-forgotten language. 
+   96The north wall is solid granite.  The entrance at the west end of the   
+   96room is through huge marble pillars. 
+   97You are in the east end of a large temple.  In front of you is what  
+   97appears to be an altar. 
+   99This room appears to have been the waiting room for groups touring 
+   99the dam.  There are exits here to the north and east marked   
+   99"PRIVATE", though the doors are open, and an exit to the south. 
+  100You are in what appears to have been the maintenance room for flood  
+  100control dam #3, judging by the assortment of tool chests around the  
+  100room.  Apparently, this room has been ransacked recently, for most of   
+  100the valuable equipment is gone.  On the wall in front of you is a
+  100panel of buttons, which are labelled in EBCDIC.  However, they are of   
+  100different colors:  blue, yellow, brown, and red.  The doors to this  
+  100room are in the west and south ends. 
+  102You are in a long passage.  To the south is one entrance.  On the  
+  102east there is an old wooden door with a large hole in it (about 
+  102cyclops sized).  
+  103This is a large room, whose north wall is solid granite.  A number 
+  103of discarded bags, which crumble at your touch, are scattered about  
+  103on the floor.  There is an exit down and what appears to be a newly  
+  103created passage to the east. 
+  104You are in what appears to have been an artist's studio.  The walls  
+  104and floors are splattered with paints of 69 different colors. 
+  104Strangely enough, nothing of value is hanging here.  At the north and   
+  104northwest of the room are open doors (also covered with paint).  An  
+  104extremely dark and narrow chimney leads up from a fireplace.  Although  
+  104you might be able to get up the chimney, it seems unlikely that you  
+  104could get back down.  
+  105You are in an art gallery.  Most of the paintings which were here  
+  105have been stolen by vandals with exceptional taste.  The vandals   
+  105left through the north, south, or west exits.  
+  106You are at the base of flood control dam #3, which looms above you 
+  106and to the north.   The Frigid River is flowing by here.  Across the 
+  106river are the white cliffs, which seem to form a giant wall stretching  
+  106from north to south along the east shore of the river as it winds its   
+  106way downstream.  
+  107You are on the Frigid River in the vicinity of the dam.  The river 
+  107flows quietly here.  There is a landing on the west shore. 
+  108The river turns a corner here making it impossible to see the 
+  108dam.  The white cliffs loom on the east bank, and large rocks 
+  108prevent landing on the west. 
+  109The river descends here into a valley.  There is a narrow beach on 
+  109the east below the cliffs, and there is some shore on the west which 
+  109may be suitable.  In the distance a faint rumbling can be heard.   
+  110You are on a narrow strip of beach which runs along the base of the  
+  110white cliffs.  The only path here is a narrow one, heading south   
+  110along the cliffs.  
+  111You are on a rocky, narrow strip of beach beside the cliffs.  A 
+  111narrow path leads north along the shore.  
+  112The river is running faster here, and the sound ahead appears to be  
+  112that of rushing water.  On the west shore is a sandy beach.  A small 
+  112area of beach can also be seen below the cliffs. 
+  113The sound of rushing water is nearly unbearable here.  On the west 
+  113shore is a large landing area.  
+  115You are on the shore of the river.  The river here seems somewhat  
+  115treacherous.  A path travels from north to south here, the south end 
+  115quickly turning around a sharp corner. 
+  116You are on a large sandy beach at the shore of the river, which is 
+  116flowing quickly by.  A path runs beside the river to the south here. 
+  117You are on the west shore of the river.  An entrance to a cave is  
+  117to the northwest.  The shore is very rocky here. 
+  118You are in a small cave whose exits are on the south and northwest.  
+  119You are in a barrel.  Congratulations.  Etched into the side of the  
+  119barrel is the word "GERONIMO!". 
+  121You are on top of a rainbow (I bet you never thought you would walk  
+  121on a rainbow), with a magnificent view of the falls.  The rainbow  
+  121travels east-west here. 
+  122You are on a small beach on the continuation of the Frigid River   
+  122past the falls.  The beach is narrow due to the presence of the white   
+  122cliffs.  The river canyon opens here, and sunlight shines in from  
+  122above.  A rainbow crosses over the falls to the west, and a narrow path 
+  122continues to the southeast.  
+  123You are beneath the walls of the river canyon, which may be climbable   
+  123here.  There is a small stream here, which is the lesser part of the 
+  123runoff of Aragain Falls.  To the north is a narrow path. 
+  124You are on a ledge about halfway up the wall of the river canyon.  
+  124You can see from here that the main flow from Aragain Falls twists 
+  124along a passage which it is impossible to enter.  Below you is the 
+  124canyon bottom.  Above you is more cliff, which still appears  
+  124climbable.  
+  125You are at the top of the great canyon on its south wall. From here  
+  125there is a marvelous view of the canyon and parts of the Frigid River   
+  125upstream.  Across the canyon, the walls of the white cliffs still  
+  125appear to loom far above.  Following the canyon upstream (north and  
+  125northwest), Aragain Falls may be seen, complete with rainbow. 
+  125Fortunately, my vision is better than average, and I can discern the 
+  125top of flood control dam #3 far to the distant north.  To the 
+  125west and south can be seen an immense forest, stretching for miles 
+  125around.  It is possible to climb down into the canyon from here.   
+  126You are at the bottom of a large dormant volcano.  High above you  
+  126light may be seen entering from the cone of the volcano.  The only 
+  126exit here is to the north. 
+  127You are about one hundred feet above the bottom of the volcano.  The 
+  127top of the volcano is clearly visible here. 
+  128You are about two hundred feet above the volcano floor.  Looming   
+  128above is the rim of the volcano.  There is a small ledge on the 
+  128west side.  
+  129You are high above the floor of the volcano.  From here the rim of 
+  129the volcano looks very narrow, and you are quite near it.  To the  
+  129east is what appears to be a viewing ledge, too thin to land on.   
+  130You are near the rim of the volcano, which is only about fifteen feet   
+  130across.  To the west, there is a place to land with a wide ledge.  
+  131You are on a narrow ledge overlooking the inside of an old dormant 
+  131volcano.  This ledge appears to be about in the middle between the 
+  131floor below and the rim above.  There is an exit here to the south.  
+  132You are on a ledge in the middle of a large volcano.  Below you 
+  132the volcano bottom can be seen and above is the rim of the volcano.  
+  132A couple of ledges can be seen on the other side of the volcano;   
+  132it appears that this ledge is intermediate in elevation between 
+  132those on the other side.  The exit from this room is to the east.  
+  134You are in a room which must have been a large library, probably   
+  134for the royal family.  All of the shelves appear to have been gnawed 
+  134to pieces by unfriendly gnomes.  To the north is an exit.  
+  136You are in a small room, whose walls are formed by an old lava flow. 
+  136There are exits here to the west and the south.  
+  139You are in a large room full of assorted heavy machinery.  The room  
+  139smells of burned resistors.  The room is noisy from the whirring   
+  139sounds of the machines.  Along one wall of the room are three buttons   
+  139which are, respectively, round, triangular, and square.  Naturally,  
+  139above the buttons are instructions written in EBCDIC.  A large sign  
+  139above all the buttons says in English: 
+  139  
+  139             DANGER:  HIGH VOLTAGE  
+  139  
+  139There are exits to the west and the south.  
+  140You are in a dingy closet adjacent to the machine room.  On one wall 
+  140is a small sticker which reads: 
+  140  
+  140           Protected by   
+  140             FROBOZZ 
+  140       Magic Alarm Company  
+  140          (Hello, footpad!).  
+  141You are trapped inside an steel cage.  
+  142You are at the top of the well.  Well done.  There are etchings on 
+  142the side of the well.  There is a small crack across the floor at the   
+  142entrance to a room on the east, but it can be crossed easily. 
+  143You are in a damp circular room, whose walls are made of brick and 
+  143mortar.  The roof of this room is not visible, but there appear to be   
+  143some etchings on the walls.  There is a passageway to the west. 
+  144You are in a small square room, in the center of which is a large  
+  144oblong table, no doubt set for afternoon tea.  It is clear from the  
+  144objects on the table that the users were indeed mad.  In the eastern 
+  144corner of this room is a small hole no more than four inches high. 
+  144There are passageways leading away to the west and the northwest.  
+  145You are in an enormous room, in the center of which are four wooden  
+  145posts delineating a rectangular area, above which is what appears to 
+  145be a wooden roof.  In fact, all objects in this room appear to be  
+  145abnormally large.  To the east is a passageway.  There is a large  
+  145chasm on the west and the northwest. 
+  146You are in a large room, one half of which is depressed.  There is a 
+  146large leak in the ceiling through which brown colored goop is 
+  146falling.  The only exit from this room is to the west.   
+  148You are in the large entrance hall of the Bank of Zork, the largest  
+  148banking institution of the Great Underground Empire.  A partial 
+  148account of its history is in "The Lives of the Twelve Flatheads" with   
+  148the chapter on J. Pierpont Flathead.  A more detailed history (albeit   
+  148less objective) may be found in Flathead's outrageous autobiography  
+  148"I'm Rich and You Aren't - So There!". 
+  148Most of the furniture has been ravaged by passing scavengers.  All 
+  148that remains are two signs at the northwest and northeast corners of 
+  148the room, which say   
+  148  
+  148   <-- WEST VIEWING ROOM        EAST VIEWING ROOM -->  
+  149You are in a small square room, which was used by a bank officer   
+  149whose job it was to retrieve safety deposit boxes for the customer.  
+  149On the north side of the room is a sign which reads "Viewing Room".  
+  149On the west side of the room, above an open door, is a sign reading  
+  149  
+  149            BANK PERSONNEL ONLY  
+  150You are in a small square room, which was used by a bank officer   
+  150whose job it was to retrieve safety deposit boxes for the customer.  
+  150On the north side of the room is a sign which reads "Viewing Room".  
+  150On the east side of the room, above an open door, is a sign reading  
+  150  
+  150            BANK PERSONNEL ONLY  
+  151You are in a room used by holders of safety deposit boxes to view  
+  151their contents.  On the north size of the room is a sign which says  
+  151  
+  151   REMAIN HERE WHILE THE BANK OFFICER RETRIEVES YOUR DEPOSIT BOX   
+  151    WHEN YOU ARE FINISHED, LEAVE THE BOX, AND EXIT TO THE SOUTH 
+  151     AN ADVANCED PROTECTIVE DEVICE PREVENTS ALL CUSTOMERS FROM  
+  151      REMOVING ANY SAFETY DEPOSIT BOX FROM THIS VIEWING AREA! 
+  151               Thank you for banking at the Zork!   
+  152You are in a room used by holders of safety deposit boxes to view  
+  152their contents.  On the north size of the room is a sign which says  
+  152  
+  152   REMAIN HERE WHILE THE BANK OFFICER RETRIEVES YOUR DEPOSIT BOX   
+  152    WHEN YOU ARE FINISHED, LEAVE THE BOX, AND EXIT TO THE SOUTH 
+  152     AN ADVANCED PROTECTIVE DEVICE PREVENTS ALL CUSTOMERS FROM  
+  152      REMOVING ANY SAFETY DEPOSIT BOX FROM THIS VIEWING AREA! 
+  152               Thank you for banking at the Zork!   
+  153You are in a small bare room with no distinguishing features.  There 
+  153are no exits from this room. 
+  154You are in the Vault of the Bank of Zork, in which there are no doors.  
+  155You are in a large rectangular room.  The east and west walls here 
+  155were used for storing safety deposit boxes.  As might be expected, 
+  155all have been carefully removed by evil persons.  To the east, west, 
+  155and south of the room are large doorways.  The northern "wall"  
+  155of the room is a shimmering curtain of light.  In the center of the  
+  155room is a large stone cube, about 10 feet on a side.  Engraved on  
+  155the side of the cube is some lettering.   
+  156This room was the office of the Chairman of the Bank of Zork. 
+  156Like the other rooms here, it has been extensively vandalized.  
+  156The lone exit is to the north.  
+  158You are standing at the top of a flight of stairs that lead down to  
+  158a passage below.  Dim light, as from torches, can be seen in the   
+  158passage.  Behind you the stairs lead into untouched rock.  
+  159You are standing near one end of a long dimly lit hall.  To the 
+  159south, stone stairs ascend.  To the north, the corridor is illum-  
+  159inated by torches set high in the wall, out of reach.  On one wall 
+  159is a red button. 
+  180You are in a corridor with polished marble walls.  The corridor 
+  180widens into larger areas as it turns east at its northern and 
+  180southern ends.   
+  181You are in a corridor with polished marble walls.  The corridor 
+  181widens into larger areas as it turns west at its northern and 
+  181southern ends.   
+  187You are in a room of large size, richly appointed and decorated 
+  187in a style that bespeaks exquisite taste.  To judge from its  
+  187contents, it is the ultimate storehouse of the treasures of Zork.  
+  187   There are chests here containing precious jewels, mountains of  
+  187zorkmids, rare paintings, ancient statuary, and beguiling curios.  
+  187   In one corner of the room is a bookcase boasting such volumes   
+  187as "The History of the Great Underground Empire", "The Lives of 
+  187the Twelve Flatheads", "The Wisdom of the Implementers", and  
+  187other informative and inspiring works. 
+  187   On one wall is a completely annotated map of the Dungeon of  
+  187Zork, showing points of interest and various troves of treasure,   
+  187and indicating the locations of several superior scenic views.  
+  187   On the desk at the far end of the room may be found stock  
+  187certificates representing a controlling interest in FrobozzCo 
+  187International, the multinational conglomerate and parent company   
+  187of the Frobozz Magic Boat Co., etc.  
+  188You are in a small square room, in the middle of which is a recently 
+  188created hole through which you can barely discern the floor some ten 
+  188feet below.  It doesn't seem likely you could climb back up.  There  
+  188are exits to the west and south.  
+    1East-West Passage  
+    2West of House 
+    3North of House   
+    4South of House   
+    5Behind House  
+    6Kitchen  
+    7Attic  
+    8Living Room 
+    9Cellar 
+   10Troll Room  
+   11Maze   
+   12Maze   
+   13Maze   
+   14Maze   
+   15Dead End 
+   16Maze   
+   17Dead End 
+   18Maze   
+   19Maze   
+   20Maze   
+   21Dead End 
+   22Maze   
+   23Maze   
+   24Maze   
+   25Grating room  
+   26Maze   
+   27Dead End 
+   28Maze   
+   29Maze   
+   30Maze   
+   31Forest 
+   32Forest 
+   33Forest 
+   34Forest 
+   35Forest 
+   36Clearing 
+   37Deep Ravine 
+   38Rocky Crawl 
+   39Reservoir South  
+   40Reservoir   
+   41Reservoir North  
+   42Stream View 
+   43Stream 
+   44Egyptian Room 
+   45Glacier Room  
+   46Ruby Room   
+   47Atlantis Room 
+   48Deep Canyon 
+   49Loud Room   
+   50Mirror Room 
+   51Mirror Room 
+   52Cave   
+   53Cave   
+   54Steep Crawlway   
+   55Narrow Crawlway  
+   56Cold Passage  
+   57Winding Passage  
+   58Slide Room  
+   59Mine Entrance 
+   60Squeaky Room  
+   61Shaft Room  
+   62Wooden Tunnel 
+   63Smelly Room 
+   64Gas Room 
+   65Ladder Top  
+   66Coal Mine   
+   67Coal Mine   
+   68Coal Mine   
+   69Coal Mine   
+   70Coal Mine   
+   71Coal Mine   
+   72Coal Mine   
+   73Ladder Bottom 
+   74Dead End 
+   75Timber Room 
+   76Lower Shaft 
+   77Machine Room  
+   78Bat Room 
+   79Dome Room   
+   80Torch Room  
+   81North-South Crawlway  
+   82West of Chasm 
+   83Round Room  
+   84North-South Passage   
+   85Chasm  
+   86Damp Cave   
+   87Ancient Chasm 
+   88Dead End 
+   89Dead End 
+   90Engravings Cave  
+   91Riddle Room 
+   92Pearl Room  
+   93Entrance to Hades  
+   94Land of the Living Dead 
+   95Grail Room  
+   96Temple 
+   97Altar  
+   98Dam 
+   99Dam Lobby   
+  100Maintenance Room 
+  101Cyclops Room  
+  102Strange Passage  
+  103Treasure Room 
+  104Studio 
+  105Gallery  
+  106Dam Base 
+  107Frigid River  
+  108Frigid River  
+  109Frigid River  
+  110White Cliffs Beach 
+  111White Cliffs Beach 
+  112Frigid River  
+  113Frigid River  
+  114Moby Lossage  
+  115Shore  
+  116Sandy Beach 
+  117Rocky Shore 
+  118Small Cave  
+  119Barrel 
+  120Aragain Falls 
+  121Rainbow room  
+  122End of rainbow   
+  123Canyon Bottom 
+  124Rocky Ledge 
+  125Canyon View 
+  126Volcano Bottom   
+  127Volcano Core  
+  128Volcano near small ledge   
+  129Volcano near viewing ledge 
+  130Volcano near wide ledge 
+  131Narrow Ledge  
+  132Volcano View  
+  133Wide ledge  
+  134Library  
+  135Dusty Room  
+  136Lava Room   
+  137Tomb of the Unknown Implementer 
+  138Low Room 
+  139Machine Room  
+  140Dingy Closet  
+  141Cage   
+  142Top of Well 
+  143Bottom of Well   
+  144Tea Room 
+  145Posts Room  
+  146Pool Room   
+  147Up a Tree   
+  148Bank Entrance 
+  149West Teller's Room 
+  150East Teller's Room 
+  151Viewing Room  
+  152Viewing Room  
+  153Small Room  
+  154Vault  
+  155Safety Depository  
+  156Chairman's Office  
+  157Crypt  
+  158Top of Stairs 
+  159Stone Room  
+  160Small Room  
+  161Hallway  
+  162Hallway  
+  163Hallway  
+  164Hallway  
+  165Hallway  
+  166Dungeon Entrance 
+  167Narrow Room 
+  168Narrow Room 
+  169Narrow Room 
+  170Narrow Room 
+  171Narrow Room 
+  172Narrow Room 
+  173Narrow Room 
+  174Narrow Room 
+  175Narrow Room 
+  176Narrow Room 
+  177Inside Mirror 
+  178Narrow Corridor  
+  179South Corridor   
+  180West Corridor 
+  181East Corridor 
+  182North Corridor   
+  183Parapet  
+  184Prison Cell 
+  185Prison Cell 
+  186Prison Cell 
+  187Nirvana  
+  188Small Square Room  
+  189Side Room   
+  190Room in a Puzzle 
+    1A brown sack is here. 
+    2There is a clove of garlic here.  
+    3A hot pepper sandwich is here.  
+    4There is a small piece of vitreous slag here.  
+    5There is a small heap of coal here.  
+    6There is an exquisite jade figurine here. 
+    8There is an enormous diamond (perfectly cut) here.  
+    9There is a trophy case here. 
+   10A clear glass bottle is here.   
+   11There is some water here.  
+   12There is a large coil of rope here.  
+   13There is a nasty-looking knife lying here.  
+   14There is an elvish sword here.  
+   15There is a brass lantern (battery-powered) here. 
+   16There is a broken brass lantern here.  
+   18There is a pile of leaves on the ground.  
+   19A nasty-looking troll, brandishing a bloody axe, blocks all passages 
+   19out of the room. 
+   20There is a bloody axe here.  
+   21There is a rusty knife here. 
+   22There is a burned-out lantern here.  
+   23There is a set of skeleton keys here.  
+   24A skeleton, probably the remains of a luckless adventurer, lies here.   
+   25An old leather bag, bulging with coins, is here. 
+   26There is a large platinum bar here.  
+   27There is a pearl necklace here with hundreds of large pearls. 
+   30A mass of ice fills the western half of the room.   
+   31There is a moby ruby lying here.  
+   32Neptune's own crystal trident is here. 
+   33There is a solid gold coffin, used for the burial of Ramses II, here.   
+   34There is an ivory torch here.   
+   35At the end of the chain is a basket. 
+   37There is a sapphire-encrusted bracelet here.   
+   38There is a pile of wooden timbers here.   
+   39There is a dented steel box here. 
+   40There is a Stradivarius here.   
+   41There are old engravings on the walls here. 
+   43There is an extremely valuable (perhaps original) grail here. 
+   45There is an old trunk here, bulging with assorted jewels.  
+   46There is a small brass bell here. 
+   47There is a large black book here. 
+   48There are two candles here.  
+   49There is a tour guidebook here. 
+   50There is an issue of US NEWS & DUNGEON REPORT dated 28-JUL-80 here.  
+   51There is a matchbook whose cover says "VISIT BEAUTIFUL FCD #3" here. 
+   52There is a small leaflet here.  
+   53There is a small mailbox here.  
+   54There is an object which looks like a tube of toothpaste here.  
+   55There is some gunk here.   
+   56There is a wrench here. 
+   57There is a screwdriver here. 
+   59There is a silver chalice, intricately engraved, here.   
+   60A masterpiece by a neglected genius is here.   
+   61There is a suspicious-looking individual, holding a bag, leaning   
+   61against one wall.  He is armed with a vicious-looking stilletto.   
+   62There is a vicious-looking stilletto here.  
+   85There is a pot of gold here. 
+   86There is a beautiful statue here. 
+   87There is a folded pile of plastic here which has a small valve attached.  
+   88There is a pile of plastic here with a large hole in it. 
+   89There is a small pump here.  
+   90There is an inflated boat here. 
+   91There is a tan label here. 
+   92There is a sharp broken stick here.  
+   94There is a red buoy here (probably a warning). 
+   95There is a large emerald here.  
+   96There is a large shovel here.   
+   97There is a hunk of bat guano here.   
+   98There is a very large and extremely heavy wicker basket with a cloth 
+   98bag here.  Inside the basket is a metal receptacle of some kind.   
+   98Attached to the basket on the outside is a piece of wire.  
+  102There is a small hook attached to the rock here. 
+  103There is a small hook attached to the rock here. 
+  104There is an engraved zorkmid coin here.   
+  106There is a card with writing on it here.  
+  108Lord Dimwit's crown is here. 
+  109There is a square brick here which feels like clay. 
+  110There is a coil of thin shiny wire here.  
+  111There is a nervous Volcano Gnome here. 
+  112There is a blue label here.  
+  113There is a balloon here, broken into pieces.   
+  114There is a blue book here. 
+  115There is a green book here.  
+  116There is a purple book here. 
+  117There is a white book here.  
+  118There is a Flathead commemorative stamp here.  
+  120There are four heads here, mounted securely on poles. 
+  121Many empty Coke bottles are here.  Alas, they can't hold water. 
+  122There is an enormous stack of line-printer paper here.  It is barely 
+  122readable and totally unintelligable. 
+  123There is a large case here, containing objects which you used to possess. 
+  124There is a mangled cage here.   
+  125There is an steel cage in the middle of the room.   
+  126There is a beautiful crystal sphere here. 
+  132A stoppered glass flask with skull-and-crossbones markings is here.  
+  132The flask is filled with some clear liquid. 
+  133The leak has submerged the depressed area in a pool of sewage.  
+  134There is a tin of rare spices here.  
+  137There is a wooden bucket here, three feet in diameter and three feet 
+  137high.  
+  138There is a piece of cake here with the words "EAT ME" on it.
+  139There is a piece of cake with orange icing here. 
+  140There is a piece of cake with red icing here.  
+  141There is a piece of cake with blue (ecch) icing here. 
+  142There is a robot here.  
+  143There is a green piece of paper here.  
+  148200 neatly stacked zorkmid bills are here.  
+  149A portrait of J. Pierpont Flathead is here. 
+  152There is a Gnome of Zurich here.  
+  153There is a small birds nest here. 
+  154There is a jewel-encrusted egg here. 
+  155There is a somewhat ruined egg here. 
+  156There is a beautiful brass bauble here.   
+  157There is a golden clockwork canary here.  
+  158There is a non-functional canary here. 
+  186There is a piece of paper on the ground here.  
+  188There is a solid gold engraved card here. 
+  215The dungeon master is quietly leaning on his staff here. 
+    1brown sack  
+    2clove of garlic  
+    3lunch  
+    4piece of vitreous slag  
+    5small pile of coal 
+    6jade figurine 
+    7machine  
+    8huge diamond  
+    9trophy case 
+   10glass bottle  
+   11quantity of water  
+   12rope   
+   13knife  
+   14sword  
+   15lamp   
+   16broken lamp 
+   17carpet 
+   18pile of leaves   
+   19troll  
+   20bloody axe  
+   21rusty knife 
+   22burned-out lantern 
+   23set of skeleton keys  
+   24skeleton 
+   25bag of coins  
+   26platinum bar  
+   27pearl necklace   
+   28mirror 
+   29mirror 
+   30glacier  
+   31ruby   
+   32crystal trident  
+   33gold coffin 
+   34torch  
+   35basket 
+   37sapphire bracelet  
+   38pile of timbers  
+   39steel box   
+   40fancy violin  
+   41wall with engravings  
+   43grail  
+   44prayer 
+   45trunk with jewels  
+   46bell   
+   47book   
+   48pair of candles  
+   49tour guidebook   
+   50newspaper   
+   51matchbook   
+   52leaflet  
+   53mailbox  
+   54tube   
+   55viscous material 
+   56wrench 
+   57screwdriver 
+   58cyclops  
+   59chalice  
+   60painting 
+   61thief  
+   62stilletto   
+   63window 
+   64bolt   
+   65grating  
+   66door   
+   67door   
+   68door   
+   69door   
+   70switch 
+   71head on a pole   
+   72pile of corpses  
+   73pile of bodies   
+   74dam 
+   75railing  
+   76gate   
+   77bubble 
+   78leak   
+   79button 
+   80button 
+   81button 
+   82button 
+   83bat 
+   84rainbow  
+   85pot of gold 
+   86statue 
+   87plastic inflatable boat 
+   88holed plastic boat 
+   89hand-held air pump 
+   90magic boat  
+   91tan label   
+   92sharp broken stick 
+   93barrel 
+   94red buoy 
+   95large emerald 
+   96shovel 
+   97hunk of bat guano  
+   98basket 
+   99receptacle  
+  100cloth bag   
+  101braided wire  
+  102hook   
+  103hook   
+  104gold zorkmid  
+  105box 
+  106card   
+  107hole   
+  108crown  
+  109brick  
+  110wire coil   
+  111Volcano Gnome 
+  112blue label  
+  113broken balloon   
+  114blue book   
+  115green book  
+  116purple book 
+  117white book  
+  118stamp  
+  119tomb   
+  120set of poled heads 
+  121bunch of Coke bottles 
+  122stack of listings  
+  123large case  
+  124mangled cage  
+  125steel cage  
+  126crystal sphere   
+  127button 
+  128button 
+  129button 
+  130wall with etchings 
+  131wall with etchings 
+  132glass flask 
+  133pool of sewage   
+  134tin of spices 
+  135large oblong table 
+  136group of wooden posts 
+  137wooden bucket 
+  138piece of "EAT ME" cake  
+  139piece of cake with orange icing 
+  140piece of cake with red icing 
+  141piece of cake with blue icing   
+  142robot  
+  143green piece of paper  
+  144large tree  
+  145large tree  
+  146cliff  
+  147white cliff 
+  148stack of zorkmid bills  
+  149portrait of J. Pierpont Flathead  
+  150large stone cube 
+  151shimmering curtain of light  
+  152gnome of Zurich  
+  153birds nest  
+  154jewel-encrusted egg   
+  155broken jewel-encrusted egg 
+  156beautiful brass bauble  
+  157clockwork canary 
+  158broken clockwork canary 
+  159yellow panel  
+  160white panel 
+  161red panel   
+  162black panel 
+  163mahogany wall 
+  164pine wall   
+  165wooden bar  
+  166long pole   
+  167short pole  
+  168T-bar  
+  169compass arrow 
+  170red button  
+  171red beam of light  
+  172bronze door 
+  173wooden door 
+  174locked door 
+  175cell door   
+  176large button  
+  177sundial  
+  178numeral 1   
+  179numeral 2   
+  180numeral 3   
+  181numeral 4   
+  182numeral 5   
+  183numeral 6   
+  184numeral 7   
+  185numeral 8   
+  186note from the Thief   
+  187small slit  
+  188gold card   
+  189steel door  
+  193cretin 
+  194everything  
+  195valuables   
+  196sailor 
+  197set of teeth  
+  198wall   
+  199lurking grue  
+  200pair of hands 
+  201breath 
+  202flyer  
+  203bird   
+  204tree   
+  205northern wall 
+  206southern wall 
+  207eastern wall  
+  208western wall  
+  209water  
+  210Guardian of Zork 
+  211compass rose  
+  212mirror 
+  213panel  
+  214stone channel 
+  215dungeon master   
+  216ladder 
+    1On the table is an elongated brown sack, smelling of hot peppers.  
+   11A bottle is sitting on the table. 
+   12A large coil of rope is lying in the corner.   
+   13On a table is a nasty-looking knife. 
+   14On hooks above the mantlepiece hangs an elvish sword of great antiquity.  
+   15A battery-powered brass lantern is on the trophy case.   
+   21Beside the skeleton is a rusty knife.  
+   22The deceased adventurer's useless lantern is here.  
+   31On the floor lies a moby ruby.  
+   32On the shore lies Neptune's own crystal trident. 
+   34Sitting on the pedestal is a flaming torch, made of ivory. 
+   45Lying half buried in the mud is an old trunk, bulging with jewels. 
+   46Lying in the corner of the room is a small brass bell.   
+   47On the altar is a large black book, open to page 569.
+   48On the two ends of the altar are burning candles.   
+   49A guidebook entitled "FLOOD CONTROL DAM #3" is on the 
+   49reception desk.  
+   60Fortunately, there is still one chance for you to be a vandal, for on   
+   60the far wall is a work of unparalleled beauty. 
+   85At the end of the rainbow is a pot of gold. 
+   92A sharp stick, which appears to have been broken at one end, is here.   
+  104On the floor is a gold zorkmid coin (a valuable collector's item). 
+  108The excessively gaudy crown of Lord Dimwit Flathead is here.  
+  121There is a large pile of empty Coke bottles here, evidently produced 
+  121by the implementers during their long struggle to win totally.  
+  122There is a gigantic pile of line-printer output here.  Although the  
+  122paper once contained useful information, almost nothing can be  
+  122distinguished now. 
+  148On the floor sit 200 neatly stacked zorkmid bills.  
+  149A portrait of J. Pierpont Flathead hangs on the wall. 
+  153On the branch is a small birds nest. 
+  154In the bird's nest is a large egg encrusted with precious jewels,  
+  154apparently scavenged somewhere by a childless songbird.  The egg is  
+  154covered with fine gold inlay and ornamented in lapis lazuli and 
+  154mother-of-pearl.  Unlike most eggs, this one is hinged and has a   
+  154delicate looking clasp holding it closed.  The egg appears extremely 
+  154fragile. 
+  157There is a golden clockwork canary nestled in the egg.  It has ruby  
+  157eyes and a silver beak.  Through a crystal window below its left   
+  157wing you can see intricate machinery inside.  It appears to have   
+  157wound down. 
+  158There is a golden clockwork canary nestled in the egg.  It seems to  
+  158have recently had a bad experience.  The mountings for its jewel-like   
+  158eyes are empty, and its silver beak is crumpled.  Through a cracked  
+  158crystal window below its left wing you can see the remains of 
+  158intricate machinery.  It is not clear what result winding it would 
+  158have, as the mainspring appears sprung.   
+  188Nestled inside the niche is an engraved gold card.  
+   41The engravings were incised in the living rock of the cave wall by 
+   41an unknown hand.  They depict, in symbolic form, the beliefs of the  
+   41ancient peoples of Zork.  Skillfully interwoven with the bas reliefs 
+   41are excerpts illustrating the major tenets expounded by the sacred 
+   41texts of the religion of that time.  Unfortunately, a later age seems   
+   41to have considered them blasphemous and just as skillfully excised them.  
+   44The prayer is inscribed in an ancient script which is hardly  
+   44remembered these days, much less understood.  What little of it can  
+   44be made out seems to be a diatribe against small insects, absent-  
+   44mindedness, and the picking up and dropping of small objects.  The 
+   44final verse seems to consign trespassers to the land of the   
+   44dead.  All evidence indicates that the beliefs of the ancient 
+   44Zorkers were obscure indeed. 
+   47            Commandment #12592  
+   47Oh ye who go about saying unto each other:  "Hello sailor":   
+   47Dost thou know the magnitude of thy sin before the gods? 
+   47Yea, verily, thou shalt be ground between two stones. 
+   47Shall the angry gods cast thy body into the whirlpool?   
+   47Surely, thy eye shall be put out with a sharp stick!  
+   47Even unto the ends of the earth shalt thou wander and 
+   47unto the land of the dead shalt thou be sent at last. 
+   47Surely thou shalt repent of thy cunning.  
+   49             Guide Book To 
+   49          Flood Control Dam #3  
+   49  
+   49  Flood control dam #3 (FCD #3) was constructed in year 783 of the 
+   49Great Underground Empire to harness the destructive power of the   
+   49Frigid River.  This work was supported by a grant of 37 million 
+   49zorkmids from the central bureaucracy and your own omnipotent local  
+   49tyrant Lord Dimwit Flathead the Excessive.  This impressive structure   
+   49is composed of 3.7 cubic feet of concrete, is 256 feet tall at the 
+   49center, and 193 feet wide at the top.  The reservoir created behind  
+   49the dam has a volume of 37 billion cubic feet, an area of 12 million 
+   49square feet, and a shore line of 36 thousand feet.  
+   49  
+   49  The construction of FCD #3 took 112 days from ground breaking to 
+   49the dedication.  It required a work force of 384 slaves, 34 slave  
+   49drivers, 12 engineers, 2 turtle doves, and a partridge in a pear   
+   49tree.  The work was managed by a command team composed of 234 
+   49bureaucrats, 2347 secretaries (at least two of whom could type),   
+   4912,256 paper shufflers, 52,469 rubber stampers, 245,193 red tape   
+   49processors, and nearly one million dead trees. 
+   49  
+   49  We will now point out some of the more interesting features of   
+   49FCD #3 as we conduct you on a guided tour of the facilities.  
+   49  
+   49  1)     You start your tour here in the dam lobby.  
+   49    You will notice on your right that ...........  
+   50          US NEWS & DUNGEON REPORT  
+   5030-AUG-90                            Late Dungeon Edition   
+   50  
+   50           --- LATE NEWS FLASH!! ---  
+   50  
+   50The endgame is here!  (Somewhere) 
+   50There have been some puzzling new discoveries near the Thief's hideaway.  
+   50  
+   50         --- BACKGROUND INFORMATION ---  
+   50  
+   50This version of Dungeon has been converted from the DECUS version for
+   50the PDP-11/VAX-11, which was itself completely reimplemented in 
+   50FORTRAN-IV from the original MDL sources created at MIT. 
+   50  
+   50This version is intended to be reasonable portable to all sorts  
+   50of computers, large and, by 1990 standards, small, except those
+   50that disobey the laws of physics, i.e. that use EBCDIC.
+   50  
+   50  
+   50  There is no official maintanence for this version; problems are
+   50best discussed on the Usenet, currently in newsgroup rec.games.misc.
+   50
+   50
+   50
+   51          [Close cover before striking BKD]  
+   51  
+   51   You too can make BIG MONEY in the exciting field of  
+   51                 PAPER SHUFFLING!   
+   51  
+   51Mr. TAA of Muddle, Mass. says:  "Before I took this course I used  
+   51to be a lowly bit twiddler.  Now with what I learned at MIT Tech   
+   51I feel really important and can obfuscate and confuse with the best."   
+   51  
+   51Mr. MARC had this to say:  "Ten short days ago all I could look 
+   51forward to was a dead-end job as a engineer.  Now I have a promising 
+   51future and make really big Zorkmids."  
+   51  
+   51MIT Tech can't promise these fantastic results to everyone, but when 
+   51you earn your MDL degree from MIT Tech your future will be brighter. 
+   51  
+   51       Send for our free brochure today!  
+   52             Welcome to Dungeon!  
+   52  
+   52   Dungeon is a game of adventure, danger, and low cunning.  In it 
+   52you will explore some of the most amazing territory ever seen by mortal 
+   52man.  Hardened adventurers have run screaming from the terrors contained  
+   52within.  
+   52  
+   52   In Dungeon, the intrepid explorer delves into the forgotten secrets  
+   52of a lost labyrinth deep in the bowels of the earth, searching for 
+   52vast treasures long hidden from prying eyes, treasures guarded by  
+   52fearsome monsters and diabolical traps!   
+   52  
+   52  
+   52   Dungeon was created at the Programming Technology Division of the MIT  
+   52Laboratory for Computer Science by Tim Anderson, Marc Blank, Bruce 
+   52Daniels, and Dave Lebling.  It was inspired by the Adventure game of 
+   52Crowther and Woods, and the Dungeons and Dragons game of Gygax  
+   52and Arneson.  The original version was written in MDL (alias MUDDLE).   
+   52The current version was translated from MDL into FORTRAN IV by  
+   52a somewhat paranoid DEC engineer who prefers to remain anonymous.  
+   52  
+   52   On-line information may be obtained with the commands HELP and INFO. 
+   52  
+   54---> Frobozz Magic Gunk Company <--- 
+   54         All Purpose Gunk  
+   67The engravings translate to, "This space intentionally left blank".  
+   91   !!!! FROBOZZ MAGIC BOAT COMPANY !!!!  
+   91  
+   91Hello, sailor!   
+   91  
+   91Instructions for use: 
+   91  
+   91   To get into the boat, say 'BOARD' 
+   91   To leave the boat, say 'DISEMBARK'  
+   91   To get into a body of water, say 'LAUNCH'   
+   91   To get to shore, say 'LAND'  
+   91  
+   91Warranty:   
+   91  
+   91   This boat is guaranteed against all defects in parts and   
+   91workmanship for a period of 76 milliseconds from date of purchase  
+   91or until first used, whichever comes first. 
+   91  
+   91Warning:  This boat is made of plastic.   
+   91  
+   91Good luck!  
+  104  
+  104          --------------------------   
+  104         /       Gold Zorkmid        \ 
+  104        /  T e n   T h o u s a n d    \  
+  104       /        Z o r k m i d s        \ 
+  104      /                                 \   
+  104     /        ||||||||||||||||||         \  
+  104    /        !||||          ||||!         \ 
+  104   |          |||   ^^  ^^   |||           |  
+  104   |          |||   OO  OO   |||           |  
+  104   | In Frobs  |||    <<    |||  We Trust  |  
+  104   |            || (______) ||             |  
+  104   |             |          |              |  
+  104   |             |__________|              |  
+  104    \                                     / 
+  104     \     -- Lord Dimwit Flathead --    /  
+  104      \     -- Beloved of Zorkers --    /   
+  104       \                               / 
+  104        \       * 722 G.U.E. *        /  
+  104         \                           / 
+  104          \                         /  
+  104            ----------------------- 
+  106Warning: 
+  106   This room was constructed over very weak rock strata.  Detonation 
+  106of exposives in this room is strictly prohibited!   
+  106                  Frobozz Magic Safe Company   
+  106                  per M. Agrippa, foreman 
+  112   !!!! FROBOZZ MAGIC BALLOON COMPANY !!!!  
+  112  
+  112Hello, aviator!  
+  112  
+  112Instructions for use: 
+  112  
+  112   To get into the balloon, say 'BOARD'   
+  112   To leave the balloon, say 'DISEMBARK'  
+  112   To land, say 'LAND'  
+  112  
+  112Warranty:   
+  112  
+  112   No warranty is expressed or implied.  You're on your own, sport.  
+  112  
+  112Good luck!  
+  114This book is written in a tongue with which I am unfamiliar.  
+  115This book is written in a tongue with which I am unfamiliar.  
+  116This book is written in a tongue with which I am unfamiliar.  
+  117This book is written in a tongue with which I am unfamiliar.  
+  118  
+  118---V----V----V----V----V----V----V----V---  
+  118|                                        |  
+  118|          ||||||||||        LORD        |  
+  118>         !||||      |      DIMWIT       <  
+  118|         ||||    ---|     FLATHEAD      |  
+  118|         |||C     CC \                  |  
+  118>          ||||       _\                 <  
+  118|           ||| (____|                   |  
+  118|            ||      |                   |  
+  118>             |______|       Our         <  
+  118|               /   \     Excessive      |  
+  118|              /     \      Leader       |  
+  118>             |       |                  <  
+  118|             |       |                  |  
+  118|                                        |  
+  118>    G.U.E. POSTAGE        3 Zorkmids    <  
+  118|                                        |  
+  118---^----^----^----^----^----^----^----^---  
+  119Here lie the implementers, whose heads were placed on poles by the 
+  119keeper of the dungeon for amazing untastefulness.   
+  122<DEFINE FEEL-FREE (LOSER)  
+  122   <TELL "FEEL FREE, CHOMPER!">   
+  122   <MEMQ ...... 
+  122The rest is, alas, unintelligable (as were the implementers). 
+  130           o  b  o   
+  130  
+  130           A  G  I   
+  130            E   L 
+  130  
+  130           m  p  a   
+  131           o  b  o 
+  131       r             z  
+  131    f   M  A  G  I  C    z   
+  131    c    W  E   L  L     y   
+  131       o             n  
+  131           m  p  a 
+  143   !!!! FROBOZZ MAGIC ROBOT COMPANY !!!! 
+  143  
+  143Hello, master!   
+  143  
+  143   I am a late-model robot, trained at MIT Tech to perform various 
+  143simple housekeeping functions.  
+  143  
+  143Instructions for use: 
+  143  
+  143   To activate me, use the following formula-- 
+  143   TELL ROBOT, something to do (CR) 
+  143   The comma is mandatory. 
+  143   Command me as you will! 
+  143  
+  143Warranty:   
+  143  
+  143   No warranty is expressed or implied.   
+  143  
+  143At your service! 
+  148  
+  148 _______________________________________________________________   
+  148| 1  0   0         GREAT UNDERGROUND EMPIRE           1  0   0  |  
+  148| 1 0 0 0 0                                           1 0 0 0 0 |  
+  148| 1 0 0 0 0                                           1 0 0 0 0 |  
+  148| 1  0   0                  DIMWIT                    1  0   0  |  
+  148|                      ||||||||||||||||                         |  
+  148|                      ||   __  __   ||              B30332744D |  
+  148|                      ||  -OO  OO-  ||                         |  
+  148|       IN FROBS       \||    >>    ||/       WE TRUST          |  
+  148|                       ||  ______  ||                          |  
+  148| B30332744D             |  ------  |                           |  
+  148|                        \\________//                           |  
+  148| 1  0   0    Series       FLATHEAD     LD Flathead   1  0   0  |  
+  148| 1 0 0 0 0   719GUE                     Treasurer    1 0 0 0 0 |  
+  148| 1 0 0 0 0                                           1 0 0 0 0 |  
+  148| 1  0   0        One Hundred Royal Zorkmids          1  0   0  |  
+  148|_______________________________________________________________|  
+  148  
+  149  
+  149                ||||||||||||||  
+  149               ||   __  __   || 
+  149               ||   $$  $$   || 
+  149              \||     >>     ||/  
+  149               ||  ________  || 
+  149                |  -//-----  |  
+  149                \\_//_______//  
+  149               ___// |  |  
+  149              /__//  |  |  
+  149                     |  |  
+  149          __________//  \\__________ 
+  149         / $ /       ****       \ $ \  
+  149        /   /         **         \   \ 
+  149       /   /|         **         |\   \   
+  149      /   / |         **         | \   \  
+  149     /   /  |         **         |  \   \ 
+  149     ^   ^__|______$Z$**$Z$______|__^   ^ 
+  149     \         *   $Z$**$Z$   *         / 
+  149      \________*___$Z$**$Z$___*________/  
+  149            |      $Z$**$Z$      |   
+  149  
+  149            J.  PIERPONT  FLATHEAD   
+  149                   CHAIRMAN  
+  150             Bank of Zork  
+  150                 VAULT 
+  150               *722 GUE* 
+  150       Frobozz Magic Vault Company   
+  186The paper is rather worn;  although the writing is barely legible  
+  186(the author probably had only a used pencil), it is a very elegant 
+  186copperplate.  
+  186  
+  186To Whom It May Concern: 
+  186  
+  186   I regret to report that the rumours regarding treasure contained  
+  186in the chamber to which this passage leads have no basis in fact.  
+  186Should you nevertheless be sufficiently foolhardy to enter, it will  
+  186be quite impossible for you to exit. 
+  186  
+  186                           Sincerely yours,  
+  186                           The Thief 
+  188 __________________________________________________________   
+  188|                                                          |  
+  188|             FROBOZZ MAGIC SECURITY SYSTEMS               |  
+  188|   Door Pass                  Royal Zork Puzzle Museum    |  
+  188|                                                          |  
+  188|                    #632-988-496-XTHF                     |  
+  188|                                                          |  
+  188|                                                          |  
+  188|    USE OF THIS PASS BY UNAUTHORIZED PERSONS OR AFTER     |  
+  188|  EXPIRATION DATE WILL RESULT IN IMMEDIATE CONFISCATION   |  
+  188|                                                          |  
+  188|                                                          |  
+  188|                             (approved)                   |  
+  188|                             Will Weng                    |  
+  188|                              789 G.U.E.                  |  
+  188|                                                          |  
+  188|                                       Expires 792 G.U.E. |  
+  188|__________________________________________________________|  
+ 2877The door is locked, and there is evidently no key.  
+ 2878The windows are all barred.  
+ 2879The windows are all barred.  
+ 2880Only Santa Claus climbs down chimneys. 
+ 2881The door is nailed shut.   
+ 2882You try to ascend the ramp, but it is impossible, and you slide back down.
+ 2883The troll fends you off with a menacing gesture. 
+ 2884The troll fends you off with a menacing gesture. 
+ 2885The troll fends you off with a menacing gesture. 
+ 2886The grating is locked.  
+ 2887There is no tree here suitable for climbing.   
+ 2888There is no tree here suitable for climbing.   
+ 2889There is no tree here suitable for climbing.   
+ 2890There is no tree here suitable for climbing.   
+ 2891The grating is locked.  
+ 2892The coffin will not fit through this passage.  
+ 2893The stairs are too steep for carrying the coffin.   
+ 2894You are not equipped for swimming.   
+ 2895You are not equipped for swimming.   
+ 2896The dam blocks your way.   
+ 2897You must specify which direction here. 
+ 2898You are not equipped for swimming.   
+ 2899You are not equipped for swimming.   
+ 2900The way is too narrow.  
+ 2901The passage is too narrow to accomodate coffins. 
+ 2902You hear the whir from the round room but can find no entrance. 
+ 2903You wouldn't fit and would die if you could.   
+ 2904You cannot fit through this passage with that load. 
+ 2905Not a chance. 
+ 2906You cannot fit through this passage with that load. 
+ 2907You cannot fit through this passage with that load. 
+ 2908You cannot go down without fracturing many bones.   
+ 2909You cannot reach the rope. 
+ 2910Not even a human fly could get up it.  
+ 2911The chasm probably leads directly to the infernal regions. 
+ 2912Are you out of your mind?  
+ 2913It is too narrow even for most insects.   
+ 2914Your way is blocked by an invisible force.  
+ 2915Some invisible force prevents you from passing through the gate.   
+ 2916Some invisible force prevents you from passing through the gate.   
+ 2917The north wall is solid rock.   
+ 2918The cyclops doesn't look like he'll let you pass.   
+ 2919The chimney is too narrow for you and all of your baggage. 
+ 2920You cannot go upstream due to the strong current.   
+ 2921The white cliffs prevent you from landing here.  
+ 2922You cannot go upstream due to the strong current.   
+ 2923The white cliffs prevent you from landing here.  
+ 2924You cannot go upstream due to the strong current.   
+ 2925You must specify which direction here. 
+ 2926The path is too narrow. 
+ 2927The path is too narrow. 
+ 2928You must specify which direction here. 
+ 2929You cannot go upstream due to the strong current.   
+ 2930You cannot go upstream due to the strong current.   
+ 2931I wouldn't jump from here. 
+ 2932I wouldn't try that.  
+ 2933It is impossible to cross this distance.  
+ 2934It's a long way down. 
+ 2935It's a long way down. 
+ 2936The walls cannot be climbed. 
+ 2937Only a mouse could get in there.  
+ 2938There is a chasm too wide to jump across. 
+ 2939There is a chasm too wide to jump across. 
+ 2940There is a chasm too wide to jump across. 
+ 2941You cannot climb any higher. 
+ 2942There is a curtain of light there.   
+ 2943An alarm rings briefly, and an invisible force prevents you from leaving. 
+ 2944An alarm rings briefly, and an invisible force prevents you from leaving. 
+ 2945The wall is solid rock. 
+ 2946The panel is closed.  
+ 2947The panel is closed.  
+ 2948The panel is closed.  
+ 2949The panel is closed.  
+ 2950The panel is closed.  
+ 2951The panel is closed.  
+ 2952The panel is closed.  
+ 2953The panel is closed.  
+ 2954The panel is closed.  
+ 2955The panel is closed.  
+ 2956The panel is closed.  
+ 2957The panel is closed.  
+ 2958The panel is closed.  
+ 2959The panel is closed.  
+ 2960The panel is closed.  
+ 2961You would be burned to a crisp in no time.  
+ 2962You would be burned to a crisp in no time.  
+ 2963The bronze door is closed. 
+ 2964The door is securely fastened.  
+ 2965The door is securely fastened.  
+ 2966The door is closed.   
+   -1  
