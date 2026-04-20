@@ -1,0 +1,12 @@
+This directory contains GNU sed.
+
+This sed may run slower than some UN*X seds but it supports a richer
+regular expression language than many seds, and has fewer arbitrary
+limits (for example, the hold space can grow arbitrarily).
+
+A faster version of sed (and of the GNU regex library) is in the
+works.
+
+See the file INSTALL for compilation and installation instructions.
+
+Please report all bugs and comments to bug-gnu-utils@prep.ai.mit.edu.
