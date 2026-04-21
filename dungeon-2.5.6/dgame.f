@@ -779,3 +779,4 @@ C DTEXT.DAT OPEN ERR
      7' The darkness becomes all encompassing, and your vision fails.')
 C
        END
+

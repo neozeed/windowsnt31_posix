@@ -11,3 +11,6 @@ alloca.o: alloca.c
 	$(CC) $(CFLAGS) -c $*.c
 
 
+clean:
+	rm -f $(OBJS) sed
+

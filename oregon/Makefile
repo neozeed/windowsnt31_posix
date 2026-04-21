@@ -18,5 +18,5 @@ f2c.o: f2c.c
 	$(CC) $(CFLAGS) -c f2c.c
 
 clean:
-	rm -f oregon.c $(OBJS) ore
+	rm -f oregon.c $(OBJS) oregon
 

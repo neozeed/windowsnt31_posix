@@ -707,3 +707,4 @@ C
      2       ((R.EQ.INMIR).AND.(MLOC.EQ.MRG))
        RETURN
        END
+
