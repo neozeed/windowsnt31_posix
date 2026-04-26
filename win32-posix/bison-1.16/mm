@@ -1,0 +1,6 @@
+
+allocate.o    bcopy.o       closure.o     conflicts.o   derives.o
+files.o       getargs.o     getopt.o      getopt1.o     gram.o
+lalr.o        lex.o         LR0.o         main.o        mktemp.o
+nullable.o    output.o      print.o       reader.o      reduce.o
+symtab.o      version.o     warshall.o    

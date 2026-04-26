@@ -1,0 +1,39 @@
+For the impatient in the 'tree' directory is my skeleton for the etc directory and the usr directory.  Don't forget to make c:\temp & c:\tmp
+
+install the bin to something like c:\bin and the usr to c:\usr  remember POSIX likes to be UNIX.
+
+Also here is some cmd files to kick off a shell, and hack..
+They are the OS/2 style CMD files, but they setup the correct environment variables.
+
+GNU Make breaks on NT 3.5 and higher.  Thats why they exclude it from the build.
+I did a bare minimum and kinda busted build of the BSD make from LiteBSD.  It kinda works, but it cannot figure out 
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+to save it's life.
+
+Put your posix binaires in the \bin directory like a UNIX!
+
+Also POSIX doesnt like .exe extensions!
+
+These projects are to be 'crossed' from the Win32 side, using nmake.
+Build order for GCC is basicall:
+
+ * GAS
+ * Bison
+ * GCC
+
+The rest can be installed however you want
+
+Oh don't blindly unzip -a as some things expect to be UNIX and some expect to be MS-DOS. I know, I hate crossing too.
+
+Also to make gcc happy copy in your sdk's \include\crt to /usr/include then overlay the posix h\ directory into /usr/include
+
+GCC expects them to be UNIX's so I use zip/unzip -a to accomplish that.
+
+I also use HPFS that preserves case, but is itself insensitive. 
+
+NTFS enjoyers will find they have to rename things, I'm sure.  Or forcefully use unzip -LL
+
+Enjoy!
+

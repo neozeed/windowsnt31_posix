@@ -1,0 +1,17 @@
+copy C:\posix\src\CAT\cat.exe \bin\cat
+copy C:\posix\src\CHMOD\chmod.exe \bin\chmod
+copy C:\posix\src\CHOWN\chown.exe \bin\chown
+copy C:\posix\src\CP\cp.exe \bin\cp
+copy C:\posix\src\ELVIS\vi.exe \bin\vi
+copy C:\posix\src\FIND\find.exe \bin\find
+copy C:\posix\src\GREP\grep.exe \bin\grep
+copy C:\posix\src\LN\ln.exe \bin\ln
+copy C:\posix\src\LS\ls.exe \bin\ls
+copy C:\posix\src\MKDIR\mkdir.exe \bin\mkdir
+copy C:\posix\src\MV\mv.exe \bin\mv
+copy C:\posix\src\RM\rm.exe \bin\rm
+copy C:\posix\src\RMDIR\rmdir.exe \bin\rmdir
+copy C:\posix\src\SH\SH\sh.exe \bin\sh.exe
+copy C:\posix\src\SH\SH\sh.exe \bin\sh
+copy C:\posix\src\TOUCH\touch.exe \bin\touch
+copy C:\posix\src\WC\wc.exe \bin\wc

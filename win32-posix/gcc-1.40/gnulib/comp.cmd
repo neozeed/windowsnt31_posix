@@ -1,0 +1,1 @@
+cl386 -c -I.. -D%1 -D_X86_=1 -D_POSIX_ -DWIN32 ../gnulib.c /Fo%1.obj

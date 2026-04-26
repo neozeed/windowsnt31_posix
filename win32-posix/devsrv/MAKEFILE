@@ -1,0 +1,16 @@
+!include <ntwin32.mak>
+
+C_DEFINES=-DWIN_NT -DSTDC_HEADERS -DDIRENT -DSTACK_DIRECTION=-1 -DDF_POSIX
+C_INCLUDES=-I..\include\bsd -I..\include\df -I.
+
+all: devsrv.exe
+
+devsrv.obj: devsrv.c *.h
+
+for2bak.obj: for2bak.c *.h
+
+devsrv.exe: devsrv.obj for2bak.obj
+	$(link) $(linkdebug) $(conlflags) -out:$*.exe $** $(conlibs)
+
+.c.obj:
+	$(cc) $(cflags) $(cvars) $(cdebug) $(C_DEFINES) $(C_INCLUDES) $*.c

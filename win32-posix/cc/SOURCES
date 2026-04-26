@@ -1,0 +1,26 @@
+BASEDIR=$(MSTOOLS)
+WIMPYMASM=1
+
+MAJORCOMP=posix
+MINORCOMP=client
+
+TARGETNAME=cc
+TARGETPATH=obj
+TARGETTYPE=LIBRARY
+
+REM_INCLUDES=c:\nt\public\sdk\inc\posix;c:\nt\public\sdk\inc\crt;\dfu\include\bsd;\dfu\include\df
+REM_INCLUDES=$(SDKPATH)\posix;$(SDKPATH)\crt;\dfu\include\bsd;\dfu\include\df
+INCLUDES=$(MSTOOLS)\posix\h;$(MSTOOLS)\h;\dfu\include\bsd;\dfu\include\df
+
+SOURCES=		\
+        cc.c
+
+C_DEFINES=-DSTDC_HEADERS -D_POSIX_SOURCE -DDIRENT -DSTACK_DIRECTION=-1 -DDF_POSIX -D_POSIX_ -DDEAMON
+UMTYPE=posix
+UMAPPL=cc
+UMLIBS=			\
+        \dfu\bsdlib\obj\i386\bsdpsx.lib
+OPTIONAL_UMTEST=
+UMBASE=0xa00000
+
+386_STDCALL=0

@@ -1,0 +1,33 @@
+remBASEDIR=$(MSTOOLS)
+WIMPYMASM=1
+
+MAJORCOMP=native
+MINORCOMP=client
+
+NTDEBUG=ntsd
+NTDEBUGTYPE=windbg
+
+TARGETNAME=devsrv
+TARGETPATH=obj
+TARGETTYPE=LIBRARY
+
+REM_INCLUDES=c:\nt\public\sdk\inc\crt;c:\nt\public\sdk\inc
+remINCLUDES=$(MSTOOLS)\h
+REM_INCLUDES=$(SDKPATH)\crt;$(SDKPATH)\posix;\dfu\include\bsd;\dfu\include\df
+INCLUDES=$(SDKPATH)\crt
+REM_INCLUDES=$(SDKPATH)\crt;$(SDKPATH)\posix;\dfu\include\bsd;\dfu\include\df
+
+SOURCES=		\
+        devsrv.c		\
+	for2bak.c
+
+C_DEFINES=-DWIN_NT -DSTDC_HEADERS -D_POSIX_SOURCE -DDIRENT -DSTACK_DIRECTION=-1 -DDF_POSIX 
+UMTYPE=console
+UMAPPL=devsrv
+UMLIBS=		\
+	obj\i386\devsrv.lib
+	
+OPTIONAL_UMTEST=
+UMBASE=0xa00000
+
+386_STDCALL=0
